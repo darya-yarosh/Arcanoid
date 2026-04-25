@@ -1,7 +1,36 @@
 import { Application, Assets, Sprite } from "pixi.js";
 
+/**
+ * State of project.
+ * 
+ * @param {Application} app - application of project
+ * @param {Application[stage]} currentPage - current active page on the game
+ * @param {Array<number>} levelState - points of all levels. Null is closed/not finished level.
+ */
+export const STATE = {
+  app: null,
+  currentPage: null,
+  levelState: [
+    1025, false, false
+  ],
+};
+
+export const PAGES = {
+  menu: {
+      name: "Menu",
+      draw: () => {},
+  },
+  levelsList: {
+      name: "LevelsList",
+      draw: () => {},
+  },
+  level: {
+      name: "Level",
+      draw: (levelId) => {},
+  },
+};
+
 (async () => {
-  // Create a new application
   const app = new Application();
 
   // Initialize the application
