@@ -83,9 +83,9 @@ const DrawMenu = (currentStage) => {
     const menuContainer = new Container();
     setBackground(Sprite.from("BGMenu"), menuContainer);
 
-    const headerContainter = createHeader();
-    headerContainter.position.set(0,100)
-    menuContainer.addChild(headerContainter);
+    const header = createHeader();
+    header.position.set(0,100)
+    menuContainer.addChild(header);
 
     const nav = createNav();
     nav.position.set(0,200)
@@ -94,7 +94,6 @@ const DrawMenu = (currentStage) => {
     const icon = createSoundButton();
     menuContainer.addChild(icon.view);
 
-    
     currentStage.addChild(menuContainer);
 }
 

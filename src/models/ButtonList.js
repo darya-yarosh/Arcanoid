@@ -1,5 +1,8 @@
 import Button from "./Button";
 
+/**
+ * List of buttons
+ */
 export default class ButtonList {
     constructor(buttonsInfo) {
         this._view = [];
