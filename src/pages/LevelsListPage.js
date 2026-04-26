@@ -46,8 +46,8 @@ const createLevelButtonData = (levelId, x, y, width, height) => {
         },
         text: levelId,
         action: () => {
-            // STATE.currentPage = PAGES.level;
-            // STATE.currentPage.draw(levelId);
+            STATE.currentPage = PAGES.level;
+            STATE.currentPage.draw(levelId);
         },
         width,
         height,
@@ -110,7 +110,7 @@ const createReturnButton = () => {
         "IconReturn",
         "IconReturn",
         "IconReturn"
-);
+    );
 }
 
 export default function DrawLevelsList(currentStage) {
