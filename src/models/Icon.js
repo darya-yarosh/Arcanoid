@@ -3,9 +3,9 @@ import { Container, Sprite, Text, Texture } from "pixi.js";
 export const IconData = {
     width: 96,
     height: 96,
-    textureDefault: 'SoundActive',
-    textureDown: 'SoundActive',
-    textureOver: 'SoundActive',
+    textureDefault: 'IconSoundActive',
+    textureDown: 'IconSoundActive',
+    textureOver: 'IconSoundActive',
     textFontFamily: 'TunnelFront',
     textColorDefault: 'white',
     textColorDown: '#636363',
@@ -13,11 +13,22 @@ export const IconData = {
 }
 
 export default class Icon {
-    constructor(positionX, positionY, text = "", height, width, action) {
+    constructor(
+        positionX, positionY, 
+        text = "", 
+        height, width, 
+        action, 
+        textureDefault = IconData.textureDefault, 
+        textureDown = IconData.textureDown, 
+        textureOver = IconData.textureOver
+    ) {
         this._view = new Container();
         this._view.eventMode = 'passive';
 
-        this._icon = new Sprite(Texture.from(IconData.textureDefault));
+        this._icon = new Sprite(Texture.from(textureDefault));
+        this._textureDefault = textureDefault;
+        this._textureDown = textureDown;
+        this._textureOver = textureOver;
         this._icon.width = IconData.width;
         this._icon.height = IconData.height;
         this._icon.x = positionX;
@@ -51,7 +62,7 @@ export default class Icon {
     }
 
     onIconDown() {
-        this._icon.texture = Texture.from(IconData.textureDown);
+        this._icon.texture = Texture.from(this._textureDown);
         this._icon.isDown = true;
 
         this._text.style.fill = IconData.textColorDown;
@@ -61,7 +72,7 @@ export default class Icon {
         console.log("action")
         action();
 
-        this._icon.texture = Texture.from(IconData.textureDefault);
+        this._icon.texture = Texture.from(this._textureDefault);
         this._icon.isDown = false;
 
         this._text.style.fill = IconData.textColorDefault;
@@ -69,7 +80,7 @@ export default class Icon {
 
     onIconUpOutside() {
         this._icon.isDown = false;
-        this._icon.texture = Texture.from(IconData.textureDefault);
+        this._icon.texture = Texture.from(this._textureDefault);
 
         this._text.style.fill = IconData.textColorDefault;
     }
@@ -80,7 +91,7 @@ export default class Icon {
             return;
         }
 
-        this._icon.texture = Texture.from(IconData.textureOver);
+        this._icon.texture = Texture.from(this._textureOver);
         this._text.style.fill = IconData.textColorOver;
     }
 
@@ -90,7 +101,7 @@ export default class Icon {
             return;
         }
 
-        this._icon.texture = Texture.from(IconData.textureDefault);
+        this._icon.texture = Texture.from(this._textureDefault);
 
         this._text.style.fill = IconData.textColorDefault
     }

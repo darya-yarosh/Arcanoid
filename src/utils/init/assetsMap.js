@@ -6,7 +6,8 @@ const assetsMap = {
         { alias: "ButtonDefault", src: '../src/assets/interface/ButtonDefault.png' },
         { alias: "ButtonDown", src: '../src/assets/interface/ButtonDown.png' },
         { alias: "ButtonOver", src: '../src/assets/interface/ButtonOver.png' },
-        { alias: "SoundActive", src: '../src/assets/interface/sound.png' },
+        { alias: "IconSoundActive", src: '../src/assets/interface/sound.png' },
+        { alias: "IconReturn", src: '../src/assets/interface/return.png' },
     ],
 }
 
