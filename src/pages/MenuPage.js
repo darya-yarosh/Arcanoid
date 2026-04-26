@@ -47,8 +47,8 @@ const createNav = () => {
             },
             text: "Start",
             action: () => {
-                // STATE.currentPage = PAGES.levelsList;
-                // STATE.currentPage.draw();
+                STATE.currentPage = PAGES.levelsList;
+                STATE.currentPage.draw();
             },
             width: buttonWidth,
             height: buttonHeight,

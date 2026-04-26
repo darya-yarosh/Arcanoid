@@ -4,6 +4,7 @@ import { init } from "./utils/init/init";
 import { preload } from "./utils/init/preload";
 
 import DrawMenu from "./pages/MenuPage";
+import DrawLevelsList from "./pages/LevelsListPage";
 
 /**
  * State of project.
@@ -27,7 +28,7 @@ export const PAGES = {
   },
   levelsList: {
       name: "LevelsList",
-      draw: () => {},
+      draw: () => DrawLevelsList(STATE.app.stage),
   },
   level: {
       name: "Level",
