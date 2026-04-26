@@ -1,6 +1,8 @@
 const assetsMap = {
     sprites: [
-        { alias: "BG", src: '../src/assets/interface/bg.avif' },
+        { alias: "BGMenu", src: '../src/assets/interface/bgMenu.avif' },
+        { alias: "BGLevelsList", src: '../src/assets/interface/bgLevelsList.avif' },
+        { alias: "BGLevel", src: '../src/assets/interface/bgLevel.avif' },
         { alias: "ButtonDefault", src: '../src/assets/interface/ButtonDefault.png' },
         { alias: "ButtonDown", src: '../src/assets/interface/ButtonDown.png' },
         { alias: "ButtonOver", src: '../src/assets/interface/ButtonOver.png' },

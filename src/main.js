@@ -2,7 +2,8 @@ import { Application, Assets, Sprite } from "pixi.js";
 
 import { init } from "./utils/init/init";
 import { preload } from "./utils/init/preload";
-import { setBackground } from "./utils/setBackground";
+
+import DrawMenu from "./pages/MenuPage";
 
 /**
  * State of project.
@@ -22,7 +23,7 @@ export const STATE = {
 export const PAGES = {
   menu: {
       name: "Menu",
-      draw: () => {},
+      draw: () => DrawMenu(STATE.app.stage),
   },
   levelsList: {
       name: "LevelsList",
@@ -45,5 +46,4 @@ export const PAGES = {
 
   
   STATE.currentPage.draw();
-  setBackground(Sprite.from('BG'), STATE.app.stage);
 })();
