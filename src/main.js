@@ -5,6 +5,7 @@ import { preload } from "./utils/init/preload";
 
 import DrawMenu from "./pages/MenuPage";
 import DrawLevelsList from "./pages/LevelsListPage";
+import DrawLevel from "./pages/LevelPage";
 
 /**
  * State of project.
@@ -32,7 +33,7 @@ export const PAGES = {
   },
   level: {
       name: "Level",
-      draw: (levelId) => {},
+      draw: (levelId) => DrawLevel(STATE.app.stage, levelId),
   },
 };
 
