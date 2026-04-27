@@ -22,15 +22,15 @@ export default class PlayerPlatform {
         this._maxX = levelBounds.getBounds().right;
         
         STATE.app.stage.interactive = true;
-        this._mouseMove = this.onMouseMove.bind(this);
-        STATE.app.stage.on('mousemove', this._mouseMove);
+        this._mouseMove = this.onPointerMove.bind(this);
+        STATE.app.stage.on('pointermove', this._mouseMove);
     }
 
     get view() {
         return this._view;
     }
     
-    onMouseMove(event) {
+    onPointerMove(event) {
         const mouseX = event.data.global.x;
         let newX = mouseX - this.width / 2;
         
