@@ -1,11 +1,11 @@
-import { Container, Text, Sprite } from "pixi.js";
+import { Container, Sprite } from "pixi.js";
+import { sound } from "@pixi/sound";
 
 import { PAGES, STATE } from "../main";
 
 import Icon from "../models/Icon";
 import ButtonList from "../models/ButtonList";
 import { Logo } from "../ui/Interface/Logo";
-import { TextData } from "../constants/interface";
 
 import { clearStage } from "../utils/clearStage";
 import { setBackground } from "../utils/setBackground";
@@ -70,7 +70,9 @@ const createSoundButton = () => {
         : 60;
     const iconY = STATE.app.screen.height - iconX - iconSize;
 
-    return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {});;
+    return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {
+        sound.volumeAll = sound.volumeAll > 0 ? 0 : 100;
+    });
 }
 
 /**
