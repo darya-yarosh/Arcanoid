@@ -17,8 +17,9 @@ import DrawLevel from "./pages/LevelPage";
 export const STATE = {
   app: null,
   currentPage: null,
+  currentLevelState: 0,
   levelState: [
-    1025, false, false
+    0, null, null, null
   ],
 };
 
