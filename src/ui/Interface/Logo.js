@@ -9,11 +9,14 @@ import { TextData } from "../../constants/interface";
  * @returns Text component.
  */
 export const Logo = (options = {}) => {
-    return new Text("Arcanoid", {
-        fontFamily: TextData.textFontFamily,
-        fontSize: 48,
-        align: "center",
-        fill: TextData.textColorDefault,
-        ...options,
+    return new Text({
+        text: "Arcanoid",
+        style: {
+            fontFamily: TextData.textFontFamily,
+            fontSize: 48,
+            align: "center",
+            fill: "#fff",
+            ...options,
+        },
     });
 };

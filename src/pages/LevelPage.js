@@ -220,11 +220,14 @@ export default function DrawLevel(currentStage, levelId) {
     const pageContainer = new Container();
     setBackground(Sprite.from("BGLevel"), pageContainer);
 
-    const score = new Text(`Score: ${STATE.currentLevelState}`, {
-        fontFamily: TextData.textFontFamily,
-        fontSize: 32,
-        fill: TextData.textColorDefault,
-        align: 'center',
+    const score = new Text({
+        text: `Score: ${STATE.currentLevelState}`, 
+        style: {
+            fontFamily: TextData.textFontFamily,
+            fontSize: 32,
+            fill: TextData.textColorDefault,
+            align: 'center',
+        }
     });
     score.position.set(
         STATE.app.screen.width * 0.05,
