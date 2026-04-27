@@ -25,7 +25,7 @@ const createLevelGrid = (levelId) => {
     )
 
     return levelGrid;
-}
+};
 
 const createLevelGridWrapper = (levelGrid) => {
     const gridContainer = new Container({
@@ -40,7 +40,7 @@ const createLevelGridWrapper = (levelGrid) => {
     gridContainer.addChild(levelGrid.view);
     
     return gridContainer;
-}
+};
 
 const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
 
@@ -120,7 +120,7 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
         ball.reset();
         // Mark: добавить уменьшение жизни, а после проверку на game over.
     }
-}
+};
 
 const createReturnButton = (action) => {
     const iconSize = 96;
@@ -142,7 +142,7 @@ const createReturnButton = (action) => {
         "IconReturn",
         "IconReturn"
     );
-}
+};
 
 export default function DrawLevel(currentStage, levelId) {
     clearStage(currentStage);
@@ -191,4 +191,4 @@ export default function DrawLevel(currentStage, levelId) {
     pageContainer.addChild(paddle.view);
 
     currentStage.addChild(pageContainer);
-}
+};

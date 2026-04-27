@@ -6,7 +6,7 @@ import ButtonList from "./ButtonList";
 export const MODAL_DATA = {
     width: 400,
     height: 400,
-}
+};
 
 export default class Modal {
     constructor(positionX, positionY, text, buttonsData) {
@@ -25,7 +25,7 @@ export default class Modal {
 
         this._buttonsList = new ButtonList(buttonsData);
         this._buttonsList.view.forEach((button) => {
-            this._modalWrapper.addChild(button.view)
+            this._modalWrapper.addChild(button.view);
         })
 
         this._message = new Text(text, {
@@ -46,4 +46,4 @@ export default class Modal {
         return this._view;
     }
 
-}
+};

@@ -26,7 +26,7 @@ const createHeader = () => {
 
     headerContainter.addChild(logo);
     return headerContainter;
-}
+};
 
 const createNav = () => {
     const navContainer = new Container();
@@ -61,7 +61,7 @@ const createNav = () => {
     })
 
     return navContainer;
-}
+};
 
 const createSoundButton = () => {
     const iconSize = 96;
@@ -73,7 +73,7 @@ const createSoundButton = () => {
     return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {
         sound.volumeAll = sound.volumeAll > 0 ? 0 : 100;
     });
-}
+};
 
 /**
  * 
@@ -97,6 +97,6 @@ const DrawMenu = (currentStage) => {
     menuContainer.addChild(icon.view);
 
     currentStage.addChild(menuContainer);
-}
+};
 
 export default DrawMenu;

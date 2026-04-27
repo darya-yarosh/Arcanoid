@@ -6,4 +6,4 @@
  */
 export const clearStage = (stage) => {
     stage.removeChildren(0);
-}
+};

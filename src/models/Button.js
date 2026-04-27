@@ -10,7 +10,7 @@ export const ButtonData = {
     textColorDefault: 'white',
     textColorDown: '#636363',
     textColorOver: '#636363',
-}
+};
 
 export default class Button {
     constructor(positionX, positionY, text, action, width = ButtonData.width, height = ButtonData.height, disabled = false) {
@@ -119,4 +119,4 @@ export default class Button {
 
         this._text.style.fill = ButtonData.textColorDefault
     }
-}
+};

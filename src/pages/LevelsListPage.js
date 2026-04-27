@@ -17,7 +17,7 @@ export const createText = (options = {}) => {
         fill: TextData.textColorDefault,
         ...options,
     });
-}
+};
 
 const createHeader = () => {
     const headerContainter = new Container();
@@ -35,7 +35,7 @@ const createHeader = () => {
 
     headerContainter.addChild(text);
     return headerContainter;
-}
+};
 
 const createLevelButtonData = (levelId, x, y, width, height) => {
     const buttonPositions = {
@@ -54,7 +54,7 @@ const createLevelButtonData = (levelId, x, y, width, height) => {
     }
 
     return buttonPositions;
-}
+};
 
 const createNav = () => {
     const navContainer = new Container();
@@ -90,7 +90,7 @@ const createNav = () => {
 
     navContainer.addChild(buttonsWrap);
     return navContainer;
-}
+};
 
 const createReturnButton = () => {
     const iconSize = 96;
@@ -111,7 +111,7 @@ const createReturnButton = () => {
         "IconReturn",
         "IconReturn"
     );
-}
+};
 
 export default function DrawLevelsList(currentStage) {
     clearStage(currentStage);
@@ -131,4 +131,4 @@ export default function DrawLevelsList(currentStage) {
     pageContainer.addChild(returnButton.view);
 
     currentStage.addChild(pageContainer);
-}
+};
