@@ -19,6 +19,10 @@ const assetsMap = {
         { alias: "wall", src: '../src/assets/level/wall.png' },
         { alias: "modal", src: '../src/assets/interface/modal.png' },
     ],
+    sounds: [
+        { alias: "hit", src: '../src/assets/sounds/floraphonic-90s-game-ui-5.mp3' },
+        { alias: "win", src: '../src/assets/sounds/floraphonic-90s-game-ui-6.mp3' },
+    ]
 }
 
 export default assetsMap;
