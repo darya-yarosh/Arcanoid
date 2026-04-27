@@ -44,6 +44,7 @@ const createLevelButtonData = (levelId, x, y, width, height) => {
             x,
             y,
         },
+        disabled: STATE.levelState[levelId-1] === null,
         text: levelId,
         action: () => {
             STATE.currentPage = PAGES.level;
