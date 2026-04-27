@@ -79,7 +79,7 @@ export default class LevelGridCell {
 
         switch (CELL_TYPES[this._cellType].health - this.health) {
             case 1: {
-                this._damageTexture.texture = Texture.from("block-destroy-3");
+                this._damageTexture.texture = Texture.from("block-destroy-1");
                 break;
             }
             case 2: {
@@ -87,7 +87,7 @@ export default class LevelGridCell {
                 break;
             }
             case 3: {
-                this._damageTexture.texture = Texture.from("block-destroy-1");
+                this._damageTexture.texture = Texture.from("block-destroy-3");
                 break;
             }
             default: {
