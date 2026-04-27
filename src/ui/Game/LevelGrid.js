@@ -26,7 +26,7 @@ export default class LevelGrid {
                 const cellPositionX = cellGapX + positionX + (LevelGridCellData.width * cellIndex);
 
                 const cellGapY = cellIndex === 0 ? 0 : gridY;
-                const cellPositionY = positionY + (LevelGridCellData.height * rowIndex);
+                const cellPositionY = cellGapY + positionY + (LevelGridCellData.height * rowIndex);
 
                 const cell = new LevelGridCell(
                     cellPositionX,
