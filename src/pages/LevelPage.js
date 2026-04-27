@@ -149,6 +149,12 @@ const createModalGameOver = (levelId) => {
     return modal;
 };
 
+const pauseGame = (ball, paddle) => {
+    STATE.app.ticker.stop();
+    ball.stop();
+    paddle.pause();
+};
+
 const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     score.text = `Score: ${STATE.currentLevelState}`;
     ball.move();
@@ -156,12 +162,8 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     ball.checkLevelBoundsCollision(levelBounds);
     ball.checkPaddleCollision(paddle);
     
-    if (!bricks || bricks.length === 15 && bricks.length !== 0) {
-        sound.play("win");
-        
-        STATE.app.ticker.stop();
-        ball.stop();
-        paddle.pause();
+    if (!bricks || bricks.length === 0) {
+        pauseGame(ball, paddle);
 
         STATE.levelState[levelId - 1] = STATE.currentLevelState;
         STATE.levelState[levelId] = 0;
@@ -179,6 +181,9 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     }
     
     if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
+        pauseGame(ball, paddle);
+
+        // ball.reset();
         const modal = createModalGameOver(levelId);
         STATE.app.stage.addChild(modal.view);
         // Mark: добавить уменьшение жизни, а после проверку на game over.
