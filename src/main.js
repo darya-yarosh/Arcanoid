@@ -1,4 +1,4 @@
-import { Application, Assets, Sprite } from "pixi.js";
+import { Application } from "pixi.js";
 
 import { init } from "./utils/init/init";
 import { preload } from "./utils/init/preload";
@@ -45,7 +45,6 @@ export const PAGES = {
   
   await init(app);
   await preload();
-
   
   STATE.currentPage.draw();
 })();

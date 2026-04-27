@@ -3,7 +3,6 @@ import { Container, Sprite, Text } from "pixi.js";
 import { PAGES, STATE } from "../main";
 
 import { TextData } from "../constants/interface";
-import { Logo } from "../ui/Interface/Logo";
 import ButtonList from "../models/ButtonList";
 import Icon from "../models/Icon";
 
@@ -61,7 +60,7 @@ const createNav = () => {
     const navContainer = new Container();
     navContainer.width = STATE.app.screen.width;
 
-    [1,2,3,4].map((levelId, levelIndex) => {
+    [1,2,3,4].map((levelId) => {
         return createLevelButtonData(levelId);
     });
 

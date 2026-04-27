@@ -39,7 +39,7 @@ const createNav = () => {
 
     navContainer.height = buttonHeight;
 
-    const buttonPositions = [
+    const buttonData = [
         {
             position: {
                 x: (STATE.app.screen.width - buttonWidth) * 0.5,
@@ -55,7 +55,7 @@ const createNav = () => {
         },
     ];
 
-    const buttonsList = new ButtonList(buttonPositions);
+    const buttonsList = new ButtonList(buttonData);
     buttonsList.view.forEach((button) => {
         navContainer.addChild(button.view)
     })
