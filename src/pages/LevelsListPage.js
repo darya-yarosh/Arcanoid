@@ -51,7 +51,7 @@ const createLevelButtonData = (levelId, x, y, width, height) => {
         },
         width,
         height,
-    }
+    };
 
     return buttonPositions;
 };

@@ -1,4 +1,5 @@
 import { Container, Sprite, Text } from "pixi.js";
+import { sound } from "@pixi/sound";
 
 import { PAGES, STATE } from "../main";
 
@@ -42,8 +43,58 @@ const createLevelGridWrapper = (levelGrid) => {
     return gridContainer;
 };
 
-const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
+const createModalWin = (levelId) => {
+    const modalPosition = {
+        x: (STATE.app.screen.width - 400) * 0.5,
+        y: (STATE.app.screen.height - 400) * 0.5,
+    };
 
+    const buttonWidth = MODAL_DATA.width - 40;
+    const buttonHeight = 80;
+    const buttonsData = [
+        {
+            position: {
+                x: (MODAL_DATA.width - buttonWidth) * 0.5,
+                y: MODAL_DATA.height - (20 + buttonHeight)*2,
+            },
+            text: "Next",
+            action: () => {
+                STATE.app.ticker.remove(tickerId);
+
+                STATE.currentPage = PAGES.level;
+                STATE.currentPage.draw(levelId+1);
+                
+                STATE.app.ticker.start();
+            },
+            width: buttonWidth,
+            height: buttonHeight,
+            disabled: false,
+        },
+        {
+            position: {
+                x: (MODAL_DATA.width - buttonWidth) * 0.5,
+                y: MODAL_DATA.height - (20 + buttonHeight)*1,
+            },
+            text: "Return",
+            action: () => {
+                STATE.app.ticker.remove(tickerId);
+                
+                STATE.currentPage = PAGES.levelsList;
+                STATE.currentPage.draw();
+                
+                STATE.app.ticker.start();
+            },
+            width: buttonWidth,
+            height: buttonHeight,
+            disabled: false,
+        },
+    ];
+    const modal = new Modal(modalPosition.x, modalPosition.y, "You win!", buttonsData);
+
+    return modal;
+};
+
+const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     score.text = `Score: ${STATE.currentLevelState}`;
     ball.move();
     
@@ -51,6 +102,8 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     ball.checkPaddleCollision(paddle);
     
     if (!bricks || bricks.length === 15 && bricks.length !== 0) {
+        sound.play("win");
+        
         STATE.app.ticker.stop();
         ball.stop();
         paddle.pause();
@@ -59,52 +112,7 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
         STATE.levelState[levelId] = 0;
         STATE.currentLevelState = 0;
 
-        const modalPosition = {
-            x: (STATE.app.screen.width - 400) * 0.5,
-            y: (STATE.app.screen.height - 400) * 0.5,
-        };
-
-        const buttonWidth = MODAL_DATA.width - 40;
-        const buttonHeight = 80;
-        const buttonsData = [
-            {
-                position: {
-                    x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                    y: MODAL_DATA.height - (20 + buttonHeight)*2,
-                },
-                text: "Next",
-                action: () => {
-                    STATE.app.ticker.remove(tickerId);
-
-                    STATE.currentPage = PAGES.level;
-                    STATE.currentPage.draw(levelId+1);
-                    
-                    STATE.app.ticker.start();
-                },
-                width: buttonWidth,
-                height: buttonHeight,
-                disabled: false,
-            },
-            {
-                position: {
-                    x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                    y: MODAL_DATA.height - (20 + buttonHeight)*1,
-                },
-                text: "Return",
-                action: () => {
-                    STATE.app.ticker.remove(tickerId);
-                    
-                    STATE.currentPage = PAGES.levelsList;
-                    STATE.currentPage.draw();
-                    
-                    STATE.app.ticker.start();
-                },
-                width: buttonWidth,
-                height: buttonHeight,
-                disabled: false,
-            },
-        ];
-        const modal = new Modal(modalPosition.x, modalPosition.y, "You win!", buttonsData);
+        const modal = createModalWin(levelId);
         STATE.app.stage.addChild(modal.view);
 
         return;

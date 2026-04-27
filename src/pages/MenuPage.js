@@ -34,7 +34,7 @@ const createNav = () => {
 
     const buttonWidth = STATE.app.screen.width <= 440
         ? STATE.app.screen.width - 32
-        : 440
+        : 440;
     const buttonHeight = 80;
 
     navContainer.height = buttonHeight;
@@ -57,8 +57,8 @@ const createNav = () => {
 
     const buttonsList = new ButtonList(buttonData);
     buttonsList.view.forEach((button) => {
-        navContainer.addChild(button.view)
-    })
+        navContainer.addChild(button.view);
+    });
 
     return navContainer;
 };
@@ -86,11 +86,11 @@ const DrawMenu = (currentStage) => {
     setBackground(Sprite.from("BGMenu"), menuContainer);
 
     const header = createHeader();
-    header.position.set(0,100)
+    header.position.set(0,100);
     menuContainer.addChild(header);
 
     const nav = createNav();
-    nav.position.set(0,200)
+    nav.position.set(0,200);
     menuContainer.addChild(nav);
 
     const icon = createSoundButton();
