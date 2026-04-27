@@ -93,7 +93,59 @@ const createModalWin = (levelId) => {
     sound.play("gameWin");
 
     const modal = new Modal(modalPosition.x, modalPosition.y, "You win!", buttonsData);
+    return modal;
+};
 
+const createModalGameOver = (levelId) => {
+    const modalPosition = {
+        x: (STATE.app.screen.width - 400) * 0.5,
+        y: (STATE.app.screen.height - 400) * 0.5,
+    };
+
+    const buttonWidth = MODAL_DATA.width - 40;
+    const buttonHeight = 80;
+    const buttonsData = [
+        {
+            position: {
+                x: (MODAL_DATA.width - buttonWidth) * 0.5,
+                y: MODAL_DATA.height - (20 + buttonHeight)*2,
+            },
+            text: "Restart",
+            action: () => {
+                STATE.app.ticker.remove(tickerId);
+
+                STATE.currentPage = PAGES.level;
+                STATE.currentPage.draw(levelId);
+                
+                STATE.app.ticker.start();
+            },
+            width: buttonWidth,
+            height: buttonHeight,
+            disabled: false,
+        },
+        {
+            position: {
+                x: (MODAL_DATA.width - buttonWidth) * 0.5,
+                y: MODAL_DATA.height - (20 + buttonHeight)*1,
+            },
+            text: "Return",
+            action: () => {
+                STATE.app.ticker.remove(tickerId);
+                
+                STATE.currentPage = PAGES.levelsList;
+                STATE.currentPage.draw();
+                
+                STATE.app.ticker.start();
+            },
+            width: buttonWidth,
+            height: buttonHeight,
+            disabled: false,
+        },
+    ];
+    
+    sound.play("gameOver");
+
+    const modal = new Modal(modalPosition.x, modalPosition.y, "Game over", buttonsData);
     return modal;
 };
 
@@ -127,8 +179,8 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     }
     
     if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
-        console.log('Game Over!');
-        ball.reset();
+        const modal = createModalGameOver(levelId);
+        STATE.app.stage.addChild(modal.view);
         // Mark: добавить уменьшение жизни, а после проверку на game over.
     }
 };
