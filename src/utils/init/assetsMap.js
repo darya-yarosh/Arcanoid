@@ -11,6 +11,13 @@ const assetsMap = {
         { alias: "block1", src: '../src/assets/level/block1.png' },
         { alias: "block2", src: '../src/assets/level/block2.png' },
         { alias: "block3", src: '../src/assets/level/block3.png' },
+        { alias: "block-destroy-1", src: '../src/assets/level/block-destroy-1.png' },
+        { alias: "block-destroy-2", src: '../src/assets/level/block-destroy-2.png' },
+        { alias: "block-destroy-3", src: '../src/assets/level/block-destroy-3.png' },
+        { alias: "ball", src: '../src/assets/player/ball.png' },
+        { alias: "platform", src: '../src/assets/player/platform.png' },
+        { alias: "wall", src: '../src/assets/level/wall.png' },
+        { alias: "modal", src: '../src/assets/interface/modal.png' },
     ],
 }
 
