@@ -16,4 +16,4 @@ export const Logo = (options = {}) => {
         fill: TextData.textColorDefault,
         ...options,
     });
-}
+};

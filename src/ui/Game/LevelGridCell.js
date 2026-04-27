@@ -5,7 +5,7 @@ import { STATE } from "../../main";
 export const LevelGridCellData = {
     width: 80,
     height: 40,
-}
+};
 
 export const CELL_TYPES = {
     1: {
@@ -28,7 +28,7 @@ export const CELL_TYPES = {
         texture: "block1",
         action: "bomb",
     },
-}
+};
 
 export default class LevelGridCell {
     constructor(positionX, positionY, cellType) {

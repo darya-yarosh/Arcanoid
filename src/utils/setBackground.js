@@ -1,5 +1,3 @@
-import { Application, Sprite } from 'pixi.js';
-
 import { STATE } from '../main';
 
 /**
