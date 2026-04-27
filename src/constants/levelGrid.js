@@ -1,4 +1,3 @@
-
 /**
  * Template of levels generations
  * 
@@ -52,4 +51,4 @@ export const LEVELS_MAPS = {
         ["0", "0", "0", "0", "0", "0", "0", "0"],
         ["0", "0", "0", "0", "0", "0", "0", "0"],
     ],
-}
+};

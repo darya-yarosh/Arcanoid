@@ -1,4 +1,4 @@
-import { Application, Assets, Sprite } from "pixi.js";
+import { Application } from "pixi.js";
 
 import { init } from "./utils/init/init";
 import { preload } from "./utils/init/preload";
@@ -17,8 +17,9 @@ import DrawLevel from "./pages/LevelPage";
 export const STATE = {
   app: null,
   currentPage: null,
+  currentLevelState: 0,
   levelState: [
-    1025, false, false
+    0, null, null, null
   ],
 };
 
@@ -45,7 +46,6 @@ export const PAGES = {
   
   await init(app);
   await preload();
-
   
   STATE.currentPage.draw();
 })();

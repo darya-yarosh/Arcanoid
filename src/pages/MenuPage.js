@@ -1,11 +1,11 @@
-import { Container, Text, Sprite } from "pixi.js";
+import { Container, Sprite } from "pixi.js";
+import { sound } from "@pixi/sound";
 
 import { PAGES, STATE } from "../main";
 
 import Icon from "../models/Icon";
 import ButtonList from "../models/ButtonList";
 import { Logo } from "../ui/Interface/Logo";
-import { TextData } from "../constants/interface";
 
 import { clearStage } from "../utils/clearStage";
 import { setBackground } from "../utils/setBackground";
@@ -26,7 +26,7 @@ const createHeader = () => {
 
     headerContainter.addChild(logo);
     return headerContainter;
-}
+};
 
 const createNav = () => {
     const navContainer = new Container();
@@ -39,7 +39,7 @@ const createNav = () => {
 
     navContainer.height = buttonHeight;
 
-    const buttonPositions = [
+    const buttonData = [
         {
             position: {
                 x: (STATE.app.screen.width - buttonWidth) * 0.5,
@@ -55,13 +55,13 @@ const createNav = () => {
         },
     ];
 
-    const buttonsList = new ButtonList(buttonPositions);
+    const buttonsList = new ButtonList(buttonData);
     buttonsList.view.forEach((button) => {
         navContainer.addChild(button.view)
     })
 
     return navContainer;
-}
+};
 
 const createSoundButton = () => {
     const iconSize = 96;
@@ -70,8 +70,10 @@ const createSoundButton = () => {
         : 60;
     const iconY = STATE.app.screen.height - iconX - iconSize;
 
-    return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {});;
-}
+    return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {
+        sound.volumeAll = sound.volumeAll > 0 ? 0 : 100;
+    });
+};
 
 /**
  * 
@@ -95,6 +97,6 @@ const DrawMenu = (currentStage) => {
     menuContainer.addChild(icon.view);
 
     currentStage.addChild(menuContainer);
-}
+};
 
 export default DrawMenu;

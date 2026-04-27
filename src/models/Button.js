@@ -10,19 +10,21 @@ export const ButtonData = {
     textColorDefault: 'white',
     textColorDown: '#636363',
     textColorOver: '#636363',
-}
+};
 
 export default class Button {
-    constructor(positionX, positionY, text, action, width = ButtonData.width, height = ButtonData.height) {
+    constructor(positionX, positionY, text, action, width = ButtonData.width, height = ButtonData.height, disabled = false) {
         this._view = new Container();
         this._view.eventMode = 'passive';
 
-        this._button = new Sprite(Texture.from(ButtonData.textureDefault));
+        this._disabled = disabled;
+
+        this._button = new Sprite(Texture.from(disabled ? ButtonData.textureDown : ButtonData.textureDefault));
         this._button.x = positionX;
         this._button.y = positionY;
         this._button.width = width;
         this._button.height = height;
-        this._button.cursor = 'pointer';
+        this._button.cursor = disabled ? "default" : "pointer";
         this._button.eventMode = 'static';
         this._button
             .on('pointerdown', () => this.onButtonDown())
@@ -50,7 +52,15 @@ export default class Button {
         return this._view;
     }
 
+    get disabled() {
+        return this._disabled;
+    }
+
     onButtonDown() {
+        if (this._disabled) {
+            return;
+        }
+
         this._button.texture = Texture.from(ButtonData.textureDown);
         this._button.isDown = true;
 
@@ -58,7 +68,10 @@ export default class Button {
     }
 
     onButtonUp(action) {
-        console.log("action")
+        if (this._disabled) {
+            return;
+        }
+
         action();
 
         this._button.texture = Texture.from(ButtonData.textureDefault);
@@ -68,6 +81,10 @@ export default class Button {
     }
 
     onButtonUpOutside() {
+        if (this._disabled) {
+            return;
+        }
+
         this._button.isDown = false;
         this._button.texture = Texture.from(ButtonData.textureDefault);
 
@@ -75,6 +92,10 @@ export default class Button {
     }
 
     onButtonOver() {
+        if (this._disabled) {
+            return;
+        }
+
         this._button.isOver = true;
         if (this._button.isDown) {
             return;
@@ -85,6 +106,10 @@ export default class Button {
     }
 
     onButtonOut() {
+        if (this._disabled) {
+            return;
+        }
+
         this._button.isOver = false;
         if (this._button.isDown) {
             return;
@@ -94,4 +119,4 @@ export default class Button {
 
         this._text.style.fill = ButtonData.textColorDefault
     }
-}
+};

@@ -10,7 +10,7 @@ export const IconData = {
     textColorDefault: 'white',
     textColorDown: '#636363',
     textColorOver: '#636363',
-}
+};
 
 export default class Icon {
     constructor(
@@ -105,4 +105,4 @@ export default class Icon {
 
         this._text.style.fill = IconData.textColorDefault
     }
-}
+};

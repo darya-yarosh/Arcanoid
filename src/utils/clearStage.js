@@ -1,5 +1,3 @@
-import { Application } from "pixi.js";
-
 /**
  * Clearing child-elements from stage.
  * Because all stages (pages) created using the wrapper element first, we can just remove first children.
@@ -8,4 +6,4 @@ import { Application } from "pixi.js";
  */
 export const clearStage = (stage) => {
     stage.removeChildren(0);
-}
+};

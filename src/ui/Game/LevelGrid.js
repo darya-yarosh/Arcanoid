@@ -1,7 +1,7 @@
 import { Container } from "pixi.js";
 
 import LevelGridCell, { LevelGridCellData} from "./LevelGridCell.js";
-import { LEVEL_GRID_TEMPLATE, LEVELS_MAPS } from "../../constants/levelGrid.js";
+import { LEVELS_MAPS } from "../../constants/levelGrid.js";
 
 /**
  * Grid of level blocks
@@ -26,7 +26,7 @@ export default class LevelGrid {
                 const cellPositionX = cellGapX + positionX + (LevelGridCellData.width * cellIndex);
 
                 const cellGapY = cellIndex === 0 ? 0 : gridY;
-                const cellPositionY = positionY + (LevelGridCellData.height * rowIndex);
+                const cellPositionY = cellGapY + positionY + (LevelGridCellData.height * rowIndex);
 
                 const cell = new LevelGridCell(
                     cellPositionX,
@@ -48,6 +48,10 @@ export default class LevelGrid {
 
     get view() {
         return this._view;
+    }
+
+    get cellsList() {
+        return this._mapSprite;
     }
 
     get width() {

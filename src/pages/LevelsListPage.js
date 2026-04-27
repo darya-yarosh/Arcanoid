@@ -3,7 +3,6 @@ import { Container, Sprite, Text } from "pixi.js";
 import { PAGES, STATE } from "../main";
 
 import { TextData } from "../constants/interface";
-import { Logo } from "../ui/Interface/Logo";
 import ButtonList from "../models/ButtonList";
 import Icon from "../models/Icon";
 
@@ -18,7 +17,7 @@ export const createText = (options = {}) => {
         fill: TextData.textColorDefault,
         ...options,
     });
-}
+};
 
 const createHeader = () => {
     const headerContainter = new Container();
@@ -36,7 +35,7 @@ const createHeader = () => {
 
     headerContainter.addChild(text);
     return headerContainter;
-}
+};
 
 const createLevelButtonData = (levelId, x, y, width, height) => {
     const buttonPositions = {
@@ -44,6 +43,7 @@ const createLevelButtonData = (levelId, x, y, width, height) => {
             x,
             y,
         },
+        disabled: STATE.levelState[levelId-1] === null,
         text: levelId,
         action: () => {
             STATE.currentPage = PAGES.level;
@@ -54,13 +54,13 @@ const createLevelButtonData = (levelId, x, y, width, height) => {
     }
 
     return buttonPositions;
-}
+};
 
 const createNav = () => {
     const navContainer = new Container();
     navContainer.width = STATE.app.screen.width;
 
-    [1,2,3,4].map((levelId, levelIndex) => {
+    [1,2,3,4].map((levelId) => {
         return createLevelButtonData(levelId);
     });
 
@@ -90,7 +90,7 @@ const createNav = () => {
 
     navContainer.addChild(buttonsWrap);
     return navContainer;
-}
+};
 
 const createReturnButton = () => {
     const iconSize = 96;
@@ -111,7 +111,7 @@ const createReturnButton = () => {
         "IconReturn",
         "IconReturn"
     );
-}
+};
 
 export default function DrawLevelsList(currentStage) {
     clearStage(currentStage);
@@ -131,4 +131,4 @@ export default function DrawLevelsList(currentStage) {
     pageContainer.addChild(returnButton.view);
 
     currentStage.addChild(pageContainer);
-}
+};

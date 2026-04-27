@@ -1,5 +1,3 @@
-import { Application, Sprite } from 'pixi.js';
-
 import { STATE } from '../main';
 
 /**
@@ -29,4 +27,4 @@ export const setBackground = (bgSprite, stage) => {
 
   // Append it first, because it should be under all other elements.
   stage.addChildAt(bgSprite, 0);
-}
+};
