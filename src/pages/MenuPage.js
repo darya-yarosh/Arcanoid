@@ -71,7 +71,11 @@ const createSoundButton = () => {
     const iconY = STATE.app.screen.height - iconX - iconSize;
 
     return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {
-        sound.volumeAll = sound.volumeAll > 0 ? 0 : 100;
+        if (!sound.context.muted) {
+            sound.muteAll();
+        } else {
+            sound.unmuteAll();
+        }
     });
 };
 

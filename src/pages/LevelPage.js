@@ -89,6 +89,9 @@ const createModalWin = (levelId) => {
             disabled: false,
         },
     ];
+
+    sound.play("gameWin");
+
     const modal = new Modal(modalPosition.x, modalPosition.y, "You win!", buttonsData);
 
     return modal;

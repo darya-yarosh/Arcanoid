@@ -25,8 +25,30 @@ const assetsMap = {
         // { name: "TunnelFront", url: "/assets/TunnelFront.ttf" },
     ],
     sounds: [
-        { alias: "hit", src: '/assets/sounds/floraphonic-90s-game-ui-5.mp3' },
-        { alias: "win", src: '/assets/sounds/floraphonic-90s-game-ui-6.mp3' },
+        { 
+            alias: "hit", 
+            src: '/assets/sounds/floraphonic-90s-game-ui-5.mp3' 
+        },
+        { 
+            alias: "gameWin", 
+            src: '/assets/sounds/floraphonic-90s-game-ui-6.mp3' 
+        },
+        { 
+            alias: "gameOver", 
+            src: '/assets/sounds/floraphonic-90s-game-ui-15.mp3' 
+        },
+        { 
+            alias: "music", 
+            src: '/assets/sounds/moodmode-8-bit-retro-game-music.mp3'
+        },
+        {
+            alias: "buttonHover",
+            src: '/assets/sounds/floraphonic-minimal-pop-click-ui-2.mp3',
+        },
+        {
+            alias: "buttonClick",
+            src: '/assets/sounds/floraphonic-minimal-pop-click-ui-1.mp3',
+        }
     ]
 }
 
