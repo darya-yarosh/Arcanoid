@@ -110,6 +110,6 @@ export default class Icon {
 
         this._icon.texture = Texture.from(this._textureDefault);
 
-        this._text.style.fill = IconData.textColorDefault
+        this._text.style.fill = IconData.textColorDefault;
     }
 };

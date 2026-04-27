@@ -23,7 +23,7 @@ const createLevelGrid = (levelId) => {
     levelGrid.view.position.set(
         (STATE.app.screen.width - levelGrid.width) / 2,
         STATE.app.screen.height * 0.1
-    )
+    );
 
     return levelGrid;
 };
@@ -248,12 +248,12 @@ export default function DrawLevel(currentStage, levelId) {
 
     tickerId = () => {
         gameCycle(levelId, ball, bricks, paddle, levelBounds, score);
-    }
+    };
     STATE.app.ticker.add(tickerId);
     
     const clearTicker = () => {
         STATE.app.ticker.remove(tickerId);
-    }
+    };
 
     const returnButton = createReturnButton(clearTicker);
 

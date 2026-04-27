@@ -50,6 +50,6 @@ const assetsMap = {
             src: '/assets/sounds/floraphonic-minimal-pop-click-ui-1.mp3',
         }
     ]
-}
+};
 
 export default assetsMap;

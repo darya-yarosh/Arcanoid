@@ -123,6 +123,6 @@ export default class Button {
 
         this._button.texture = Texture.from(ButtonData.textureDefault);
 
-        this._text.style.fill = ButtonData.textColorDefault
+        this._text.style.fill = ButtonData.textColorDefault;
     }
 };

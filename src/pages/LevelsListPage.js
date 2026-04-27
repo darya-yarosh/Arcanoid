@@ -88,8 +88,8 @@ const createNav = () => {
 
     const buttonsList = new ButtonList(buttonPositions);
     buttonsList.view.forEach(button => {
-        buttonsWrap.addChild(button.view)
-    })
+        buttonsWrap.addChild(button.view);
+    });
 
     navContainer.addChild(buttonsWrap);
     return navContainer;
