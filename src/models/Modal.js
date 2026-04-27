@@ -1,7 +1,8 @@
-import { Container, Sprite, Text, Texture } from "pixi.js";
+import { BlurFilter, Container, Sprite, Text, Texture } from "pixi.js";
 
 import { ButtonData } from "./Button";
 import ButtonList from "./ButtonList";
+import { STATE } from "../main";
 
 export const MODAL_DATA = {
     width: 400,
@@ -11,6 +12,21 @@ export const MODAL_DATA = {
 export default class Modal {
     constructor(positionX, positionY, text, buttonsData) {
         this._view = new Container();
+        this._view.eventMode = 'passive';
+
+        this._overlay = new Sprite(Texture.WHITE);
+        this._overlay.width = STATE.app.screen.width;
+        this._overlay.height = STATE.app.screen.height;
+        this._overlay.tint = 0x000000;
+        this._overlay.alpha = 0.4;
+        this._overlay.eventMode = 'static';
+        this._overlay.cursor = 'default';
+
+        const blurFilter = new BlurFilter();
+        blurFilter.strength = 5;
+        this._overlay.filters = [blurFilter];
+        
+        this._view.addChild(this._overlay);
 
         this._modalWrapper = new Container();
         this._modalWrapper.x = positionX;

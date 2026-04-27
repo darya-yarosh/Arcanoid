@@ -93,8 +93,66 @@ const createModalWin = (levelId) => {
     sound.play("gameWin");
 
     const modal = new Modal(modalPosition.x, modalPosition.y, "You win!", buttonsData);
-
     return modal;
+};
+
+const createModalGameOver = (levelId) => {
+    const modalPosition = {
+        x: (STATE.app.screen.width - 400) * 0.5,
+        y: (STATE.app.screen.height - 400) * 0.5,
+    };
+
+    const buttonWidth = MODAL_DATA.width - 40;
+    const buttonHeight = 80;
+    const buttonsData = [
+        {
+            position: {
+                x: (MODAL_DATA.width - buttonWidth) * 0.5,
+                y: MODAL_DATA.height - (20 + buttonHeight)*2,
+            },
+            text: "Restart",
+            action: () => {
+                STATE.app.ticker.remove(tickerId);
+
+                STATE.currentPage = PAGES.level;
+                STATE.currentPage.draw(levelId);
+                
+                STATE.app.ticker.start();
+            },
+            width: buttonWidth,
+            height: buttonHeight,
+            disabled: false,
+        },
+        {
+            position: {
+                x: (MODAL_DATA.width - buttonWidth) * 0.5,
+                y: MODAL_DATA.height - (20 + buttonHeight)*1,
+            },
+            text: "Return",
+            action: () => {
+                STATE.app.ticker.remove(tickerId);
+                
+                STATE.currentPage = PAGES.levelsList;
+                STATE.currentPage.draw();
+                
+                STATE.app.ticker.start();
+            },
+            width: buttonWidth,
+            height: buttonHeight,
+            disabled: false,
+        },
+    ];
+    
+    sound.play("gameOver");
+
+    const modal = new Modal(modalPosition.x, modalPosition.y, "Game over", buttonsData);
+    return modal;
+};
+
+const pauseGame = (ball, paddle) => {
+    STATE.app.ticker.stop();
+    ball.stop();
+    paddle.pause();
 };
 
 const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
@@ -104,12 +162,8 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     ball.checkLevelBoundsCollision(levelBounds);
     ball.checkPaddleCollision(paddle);
     
-    if (!bricks || bricks.length === 15 && bricks.length !== 0) {
-        sound.play("win");
-        
-        STATE.app.ticker.stop();
-        ball.stop();
-        paddle.pause();
+    if (!bricks || bricks.length === 0) {
+        pauseGame(ball, paddle);
 
         STATE.levelState[levelId - 1] = STATE.currentLevelState;
         STATE.levelState[levelId] = 0;
@@ -127,8 +181,11 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     }
     
     if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
-        console.log('Game Over!');
-        ball.reset();
+        pauseGame(ball, paddle);
+
+        // ball.reset();
+        const modal = createModalGameOver(levelId);
+        STATE.app.stage.addChild(modal.view);
         // Mark: добавить уменьшение жизни, а после проверку на game over.
     }
 };
