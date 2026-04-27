@@ -1,4 +1,5 @@
 import { Container, Sprite, Text, Texture } from "pixi.js";
+import { sound } from "@pixi/sound";
 
 export const ButtonData = {
     width: 226,
@@ -61,6 +62,7 @@ export default class Button {
             return;
         }
 
+        sound.play("buttonClick");
         this._button.texture = Texture.from(ButtonData.textureDown);
         this._button.isDown = true;
 
@@ -101,6 +103,7 @@ export default class Button {
             return;
         }
 
+        sound.play("buttonHover");
         this._button.texture = Texture.from(ButtonData.textureOver);
         this._text.style.fill = ButtonData.textColorOver;
     }
