@@ -1,4 +1,5 @@
 import { Container, Sprite, Text, Texture } from "pixi.js";
+import { sound } from "@pixi/sound";
 
 export const IconData = {
     width: 96,
@@ -62,6 +63,8 @@ export default class Icon {
     }
 
     onIconDown() {
+        sound.play("buttonClick");
+        
         this._icon.texture = Texture.from(this._textureDown);
         this._icon.isDown = true;
 
@@ -69,7 +72,7 @@ export default class Icon {
     }
 
     onIconUp(action) {
-        console.log("action")
+        console.log("action");
         action();
 
         this._icon.texture = Texture.from(this._textureDefault);
@@ -91,6 +94,7 @@ export default class Icon {
             return;
         }
 
+        sound.play("buttonHover");
         this._icon.texture = Texture.from(this._textureOver);
         this._text.style.fill = IconData.textColorOver;
     }
