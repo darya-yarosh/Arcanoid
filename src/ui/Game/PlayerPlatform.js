@@ -32,8 +32,8 @@ export default class PlayerPlatform {
         this._maxX = levelBounds.getBounds().right;
         
         STATE.app.stage.interactive = true;
-        this._mouseMove = this.onPointerMove.bind(this);
-        STATE.app.stage.on('pointermove', this._mouseMove);
+        this._pointerMove = this.onPointerMove.bind(this);
+        STATE.app.stage.on('pointermove', this._pointerMove);
     }
 
     get view() {
@@ -41,8 +41,8 @@ export default class PlayerPlatform {
     }
     
     onPointerMove(event) {
-        const mouseX = event.data.global.x;
-        let newX = mouseX - this.width / 2;
+        const pointerX = event.data.global.x;
+        let newX = pointerX - this.width / 2;
         
         newX = Math.max(this._minX, Math.min(newX, this._maxX - this.width));
         this.x = newX;
@@ -57,11 +57,11 @@ export default class PlayerPlatform {
     }
 
     pause() {
-        STATE.app.stage.off('mousemove', this._mouseMove);
+        STATE.app.stage.off('pointermove', this._pointerMove);
     }
 
     resume() {
-        STATE.app.stage.on('mousemove', this._mouseMove);
+        STATE.app.stage.on('pointermove', this._pointerMove);
     }
     
     destroy() {
