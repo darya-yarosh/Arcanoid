@@ -138,6 +138,7 @@ export default class Ball {
             
             // Корректируем позицию, чтобы мяч не застрял
             this.y = paddleTop - this.radius;
+            paddle.onHit();
             
             return true;
         }

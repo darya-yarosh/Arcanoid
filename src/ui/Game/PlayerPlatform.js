@@ -49,6 +49,13 @@ export default class PlayerPlatform {
         this._view.x = this.x;
     }
 
+    onHit() {
+        this._sprite.texture = Texture.from(PLATFORM_DATA.textureHit);
+        setTimeout(() => {
+            this._sprite.texture = Texture.from(PLATFORM_DATA.textureDefault);
+        }, 100);
+    }
+
     pause() {
         STATE.app.stage.off('mousemove', this._mouseMove);
     }
