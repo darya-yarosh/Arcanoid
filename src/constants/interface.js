@@ -20,7 +20,7 @@ export const COLORS = {
 };
 
 export const TextData = {
-    textFontFamily: 'TunnelFront',
+    textFontFamily: 'font-1',
     textColorDefault: 'white',
     textColorDown: '#636363',
     textColorOver: '#636363',

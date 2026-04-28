@@ -1,4 +1,4 @@
-import { Container } from "pixi.js";
+import { Container, Text } from "pixi.js";
 
 import { PAGES, STATE } from "../../main";
 

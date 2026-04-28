@@ -7,7 +7,7 @@ export const IconData = {
     textureDefault: 'IconSoundActive',
     textureDown: 'IconSoundActive',
     textureOver: 'IconSoundActive',
-    textFontFamily: 'TunnelFront',
+    textFontFamily: 'font-1',
     textColorDefault: 'white',
     textColorDown: '#636363',
     textColorOver: '#636363',
