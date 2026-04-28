@@ -10,7 +10,7 @@ export default function DrawLevelsList(currentStage) {
     clearStage(currentStage);
     
     const pageContainer = new Container();
-    setBackground(Sprite.from("BGLevelsList"), pageContainer);
+    setBackground(Sprite.from("BG"), pageContainer);
 
     const header = createHeader();
     header.position.set(0,100);

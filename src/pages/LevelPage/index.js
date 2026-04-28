@@ -20,7 +20,7 @@ export default function DrawLevel(currentStage, levelId) {
     tickerId = null;
 
     const pageContainer = new Container();
-    setBackground(Sprite.from("BGLevel"), pageContainer);
+    setBackground(Sprite.from("BG"), pageContainer);
 
     const score = new Text({
         text: `Score: ${STATE.currentLevelState}`, 
@@ -41,10 +41,10 @@ export default function DrawLevel(currentStage, levelId) {
     const levelGridWrapper = createLevelGridWrapper(levelGrid);
     pageContainer.addChild(levelGridWrapper);
 
-    const levelBounds = new LevelBounds(pageContainer);
+    const levelBounds = new LevelBounds(pageContainer, undefined, undefined, 0);
     
     const ball = new Ball(16, 10, "ball", 3);
-    const paddle = new PlayerPlatform(STATE.app.screen.height - 16 - 60, levelBounds);
+    const paddle = new PlayerPlatform(STATE.app.screen.height - 16 - 100, levelBounds);
     const health = new Text({
         text: `Health: ${ball.health}`,
         style: {

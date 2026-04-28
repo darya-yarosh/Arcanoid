@@ -8,7 +8,7 @@ const DrawMenu = (currentStage) => {
     clearStage(currentStage);
 
     const menuContainer = new Container();
-    setBackground(Sprite.from("BGMenu"), menuContainer);
+    setBackground(Sprite.from("BG"), menuContainer);
 
     const header = createHeader();
     header.position.set(0,100);

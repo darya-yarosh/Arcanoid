@@ -142,9 +142,9 @@ const createModalGameOver = (levelId) => {
 };
 
 const pauseGame = (ball, paddle) => {
-    STATE.app.ticker.stop();
     ball.stop();
     paddle.pause();
+    STATE.app.ticker.remove(tickerId);
 };
 
 const decreaseBallHealth = (ball, healthText) => {
@@ -213,6 +213,5 @@ export const createReturnButton = (action) => {
         },
         "IconReturn",
         "IconReturn",
-        "IconReturn"
     );
 };

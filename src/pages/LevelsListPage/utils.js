@@ -110,6 +110,5 @@ export const createReturnButton = () => {
         },
         "IconReturn",
         "IconReturn",
-        "IconReturn"
     );
 };
