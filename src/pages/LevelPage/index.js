@@ -45,6 +45,9 @@ export default function DrawLevel(currentStage, levelId) {
     
     const ball = new Ball(16, 10, "ball", 3);
     const paddle = new PlayerPlatform(STATE.app.screen.height - 16 - 100, levelBounds);
+    
+    ball.stickToPaddle(paddle);
+    
     const health = new Text({
         text: `Health: ${ball.health}`,
         style: {
@@ -61,13 +64,22 @@ export default function DrawLevel(currentStage, levelId) {
     
     const bricks = levelGrid.cellsList;
 
+    const onBallLaunch = () => {
+        if (ball.isSticked) {
+            ball.launch();
+
+            STATE.app.stage.off('pointertap', onBallLaunch);
+        }
+    };
+
     tickerId = () => {
-        gameCycle(levelId, ball, bricks, paddle, levelBounds, score, health);
+        gameCycle(levelId, ball, bricks, paddle, levelBounds, score, health, onBallLaunch);
     };
     STATE.app.ticker.add(tickerId);
     
     const clearTicker = () => {
         STATE.app.ticker.remove(tickerId);
+        STATE.app.stage.off('pointertap', onBallLaunch);
     };
 
     const returnButton = createReturnButton(clearTicker);
@@ -78,4 +90,8 @@ export default function DrawLevel(currentStage, levelId) {
     pageContainer.addChild(paddle.view);
 
     currentStage.addChild(pageContainer);
+
+    setTimeout(() => {
+        STATE.app.stage.on('pointertap', onBallLaunch);
+    }, 500);
 };

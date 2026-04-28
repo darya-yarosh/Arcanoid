@@ -64,7 +64,7 @@ const createModalWin = (levelId) => {
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - 40 - buttonsGap*0 (buttonHeight * 1),
+                y: MODAL_DATA.height - 40 - buttonsGap*0 - (buttonHeight * 1),
             },
             text: "Return",
             action: () => {
@@ -83,7 +83,7 @@ const createModalWin = (levelId) => {
 
     sound.play("gameWin");
 
-    const modal = new Modal(modalPosition.x, modalPosition.y, "You win!", buttonsData);
+    const modal = new Modal(modalPosition.x, modalPosition.y, "You won!", buttonsData);
     return modal;
 };
 
@@ -152,11 +152,15 @@ const decreaseBallHealth = (ball, healthText) => {
     healthText.text = `Health: ${ball.health}`;
 };
 
-const handleBallFallen = (ball, healthText, paddle, levelId) => {
+const handleBallFallen = (ball, healthText, paddle, levelId, onLaunch) => {
     decreaseBallHealth(ball, healthText);
 
     if (ball.health > 0) {
         ball.reset();
+        ball.stickToPaddle(paddle);
+
+        STATE.app.stage.on('pointertap', onLaunch);
+        STATE.app.ticker.start();
     } else {
         pauseGame(ball, paddle);
 
@@ -165,33 +169,36 @@ const handleBallFallen = (ball, healthText, paddle, levelId) => {
     }
 };
 
-export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, healthText) => {
+export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, healthText, onLaunch) => {
     score.text = `Score: ${STATE.currentLevelState}`;
+
     ball.move();
     
-    ball.checkLevelBoundsCollision(levelBounds);
-    ball.checkPaddleCollision(paddle);
-    
-    if (!bricks || bricks.length === 0) {
-        pauseGame(ball, paddle);
+    if (!ball.isSticked && ball.isMoving) {
+        ball.checkLevelBoundsCollision(levelBounds);
+        ball.checkPaddleCollision(paddle);
+        
+        if (!bricks || bricks.length === 0) {
+            pauseGame(ball, paddle);
 
-        STATE.levelState[levelId - 1] = STATE.currentLevelState;
-        STATE.levelState[levelId] = 0;
-        STATE.currentLevelState = 0;
+            STATE.levelState[levelId - 1] = STATE.currentLevelState;
+            STATE.levelState[levelId] = 0;
+            STATE.currentLevelState = 0;
 
-        const modal = createModalWin(levelId);
-        STATE.app.stage.addChild(modal.view);
+            const modal = createModalWin(levelId);
+            STATE.app.stage.addChild(modal.view);
 
-        return;
-    }
+            return;
+        }
 
-    const hit = ball.checkBricksCollision(bricks);
-    if (hit) {
-        ball.increaseSpeed(1.02);
-    }
-    
-    if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
-        handleBallFallen(ball, healthText, paddle, levelId);
+        const hit = ball.checkBricksCollision(bricks);
+        if (hit) {
+            ball.increaseSpeed(1.02);
+        }
+        
+        if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
+            handleBallFallen(ball, healthText, paddle, levelId, onLaunch);
+        }
     }
 };
 
