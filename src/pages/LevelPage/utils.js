@@ -147,7 +147,7 @@ const pauseGame = (ball, paddle) => {
 
 const decreaseBallHealth = (ball, healthText) => {
     ball.health = ball.health - 1;
-    healthText.text = ball.health;
+    healthText.text = `Health: ${ball.health}`;
 };
 
 const handleBallFallen = (ball, healthText, paddle, levelId) => {

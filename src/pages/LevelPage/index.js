@@ -46,7 +46,7 @@ export default function DrawLevel(currentStage, levelId) {
     const ball = new Ball(16, 10, "ball", 3);
     const paddle = new PlayerPlatform(STATE.app.screen.height - 16 - 60, levelBounds);
     const health = new Text({
-        text: `${ball.health}`,
+        text: `Health: ${ball.health}`,
         style: {
             fontFamily: TextData.textFontFamily,
             fontSize: 24,
