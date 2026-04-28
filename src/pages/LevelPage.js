@@ -155,7 +155,7 @@ const pauseGame = (ball, paddle) => {
     paddle.pause();
 };
 
-const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
+const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, health) => {
     score.text = `Score: ${STATE.currentLevelState}`;
     ball.move();
     
@@ -181,12 +181,17 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score) => {
     }
     
     if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
-        pauseGame(ball, paddle);
+        ball.health = ball.health - 1;
+        health.text = ball.health;
 
-        // ball.reset();
-        const modal = createModalGameOver(levelId);
-        STATE.app.stage.addChild(modal.view);
-        // Mark: добавить уменьшение жизни, а после проверку на game over.
+        if (ball.health > 0) {
+            ball.reset();
+        } else {
+            pauseGame(ball, paddle);
+    
+            const modal = createModalGameOver(levelId);
+            STATE.app.stage.addChild(modal.view);
+        }
     }
 };
 
@@ -241,13 +246,26 @@ export default function DrawLevel(currentStage, levelId) {
 
     const levelBounds = new LevelBounds(pageContainer);
     
-    const ball = new Ball(16, 0xffaa00, 10, "ball");
+    const ball = new Ball(16, 0xffaa00, 10, "ball", 3);
     const paddle = new PlayerPlatform(undefined, 16, undefined, STATE.app.screen.height - 16 - 60, levelBounds);
+    const health = new Text({
+        text: `${ball.health}`,
+        style: {
+            fontFamily: TextData.textFontFamily,
+            fontSize: 24,
+            align: "center",
+            fill: "#fff",
+        },
+    });
+    health.position.set(
+        STATE.app.screen.width - 100 - health.width, 
+        STATE.app.screen.width * 0.05 + score.height
+    );
     
     const bricks = levelGrid.cellsList;
 
     tickerId = () => {
-        gameCycle(levelId, ball, bricks, paddle, levelBounds, score);
+        gameCycle(levelId, ball, bricks, paddle, levelBounds, score, health);
     };
     STATE.app.ticker.add(tickerId);
     
@@ -257,6 +275,7 @@ export default function DrawLevel(currentStage, levelId) {
 
     const returnButton = createReturnButton(clearTicker);
 
+    pageContainer.addChild(health);
     pageContainer.addChild(returnButton.view);
     pageContainer.addChild(ball.view);
     pageContainer.addChild(paddle.view);

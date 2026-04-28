@@ -4,7 +4,8 @@ import { sound } from '@pixi/sound';
 import { STATE } from '../../main';
 
 export default class Ball {
-    constructor(radius = 8, color = 0xffaa00, speed = 3, texture) {
+    constructor(radius = 8, color = 0xffaa00, speed = 3, texture, health) {
+        this.health = health;
         this.radius = radius;
         this.color = color;
         
