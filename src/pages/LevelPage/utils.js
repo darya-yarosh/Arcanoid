@@ -1,11 +1,14 @@
 import { Container } from "pixi.js";
 import { sound } from "@pixi/sound";
 
+import { tickerId } from ".";
+
 import { PAGES, STATE } from "../../main";
 import Modal, { MODAL_DATA } from "../../models/Modal";
-import LevelGrid from "../../ui/Game/LevelGrid";
-import { tickerId } from ".";
 import Icon from "../../models/Icon";
+import LevelGrid from "../../ui/Game/LevelGrid";
+
+import { saveState } from "../../utils/init/state";
 
 export const createLevelGrid = (levelId) => {
     const levelGrid = new LevelGrid(levelId, 10, 10);
@@ -184,6 +187,7 @@ export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, hea
             STATE.levelState[levelId - 1] = STATE.currentLevelState;
             STATE.levelState[levelId] = 0;
             STATE.currentLevelState = 0;
+            saveState();
 
             const modal = createModalWin(levelId);
             STATE.app.stage.addChild(modal.view);

@@ -2,6 +2,7 @@ import { Application } from "pixi.js";
 
 import { init } from "./utils/init/init";
 import { preload } from "./utils/init/preload";
+import { initState } from "./utils/init/state";
 
 import DrawMenu from "./pages/MenuPage";
 import DrawLevelsList from "./pages/LevelsListPage";
@@ -43,6 +44,8 @@ export const PAGES = {
 
   STATE.app = app;
   STATE.currentPage = PAGES.menu;
+
+  initState();
   
   await init(app);
   await preload();
