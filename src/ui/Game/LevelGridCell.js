@@ -26,12 +26,12 @@ export const CELL_TYPES = {
         action: null,
         points: 30,
     },
-    4: {
-        health: 1,
-        texture: "block1",
-        action: "bomb",
-        points: 0,
-    },
+    // 4: {
+    //     health: 1,
+    //     texture: "block1",
+    //     action: "bomb",
+    //     points: 0,
+    // },
 };
 
 export default class LevelGridCell {
