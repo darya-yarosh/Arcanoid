@@ -1,19 +1,19 @@
-import { Graphics, Sprite, Texture } from 'pixi.js';
+import { Container, Graphics, Sprite, Texture } from 'pixi.js';
 import { sound } from '@pixi/sound';
 
 import { STATE } from '../../main';
 
 export default class Ball {
     constructor(radius = 8, color = 0xffaa00, speed = 3, texture) {
-        this.app = STATE.app;
         this.radius = radius;
         this.color = color;
         
-        // Создание графического объекта мяча
-        this._view = new Graphics();
-        this._view.beginFill(color);
-        this._view.drawCircle(0, 0, radius);
-        this._view.endFill();
+        this._view = new Container();
+
+        this._circle = new Graphics();
+        this._circle.circle(0, 0, radius);
+        this._circle.fill(color);
+        this._view.addChild(this._circle);
 
         if (texture) {
             const sprite = new Sprite(Texture.from(texture));
@@ -22,20 +22,16 @@ export default class Ball {
             sprite.anchor.set(0.5);
             this._view.addChild(sprite);
         }
-        
-        // Начальная позиция
+ 
         this.x = STATE.app.screen.width / 2;
         this.y = STATE.app.screen.height - 50;
         
-        // Скорость мяча
         this.speed = speed;
         this.vx = speed;
         this.vy = -1 * speed;
         
-        // Параметры отскока
         this.bounce = 1;
-        
-        // Обновляем позицию
+
         this.updatePosition();
     }
 
@@ -48,7 +44,10 @@ export default class Ball {
         this._view.y = this.y;
         const directionAngle = Math.atan2(this.vy, this.vx);
         const resultAngle = directionAngle + Math.PI / 2;
-        this._view.children[0].rotation = resultAngle;
+
+        if (this.view.children[1]) {
+            this.view.children[1].rotation = resultAngle;
+        }
     }
     
     move() {
@@ -101,8 +100,8 @@ export default class Ball {
             this.vx = -this.vx;
             return true;
         }
-        if (this.x + this.radius >= this.app.screen.width) {
-            this.x = this.app.screen.width - this.radius;
+        if (this.x + this.radius >= STATE.app.screen.width) {
+            this.x = STATE.app.screen.width - this.radius;
             this.vx = -this.vx;
             return true;
         }
@@ -216,8 +215,8 @@ export default class Ball {
     
     // Сброс мяча в начальную позицию
     reset() {
-        this.x = this.app.screen.width / 2;
-        this.y = this.app.screen.height - 50;
+        this.x = STATE.app.screen.width / 2;
+        this.y = STATE.app.screen.height - 50;
         this.vx = this.speed;
         this.vy = -1 * this.speed;
         this.updatePosition();
