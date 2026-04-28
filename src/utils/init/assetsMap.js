@@ -17,7 +17,8 @@ const assetsMap = {
         { alias: "ball", src: '/assets/BBreaker/Ball_small-blue.png' },
         { alias: "platform", src: '/assets/BBreaker/Player.png' },
         { alias: "platformHit", src: '/assets/BBreaker/Player_flash.png' },
-        { alias: "wall", src: '/assets/level/wall.png' },
+        { alias: "wall", src: '/assets/BBreaker/Brick_unbreakable2.png' },
+        { alias: "frame", src: '/assets/BBreaker/Frame.png' },
         { alias: "modal", src: '/assets/interface/modal.png' },
     ],
     fonts: [
