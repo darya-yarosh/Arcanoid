@@ -1,13 +1,11 @@
-import { Container, Sprite, Text } from "pixi.js";
+import { Container } from "pixi.js";
 
-import { PAGES, STATE } from "../main";
+import { PAGES, STATE } from "../../main";
 
-import { TextData } from "../constants/interface";
-import ButtonList from "../models/ButtonList";
-import Icon from "../models/Icon";
+import { TextData } from "../../constants/interface";
 
-import { clearStage } from "../utils/clearStage";
-import { setBackground } from "../utils/setBackground";
+import ButtonList from "../../models/ButtonList";
+import Icon from "../../models/Icon";
 
 export const createText = (options = {}) => {
     return new Text({
@@ -22,7 +20,7 @@ export const createText = (options = {}) => {
     });
 };
 
-const createHeader = () => {
+export const createHeader = () => {
     const headerContainter = new Container();
     headerContainter.width = STATE.app.screen.width;
 
@@ -59,7 +57,7 @@ const createLevelButtonData = (levelId, x, y, width, height) => {
     return buttonPositions;
 };
 
-const createNav = () => {
+export const createNav = () => {
     const navContainer = new Container();
     navContainer.width = STATE.app.screen.width;
 
@@ -95,7 +93,7 @@ const createNav = () => {
     return navContainer;
 };
 
-const createReturnButton = () => {
+export const createReturnButton = () => {
     const iconSize = 96;
     const iconX = STATE.app.screen.width <= 500
         ? 40
@@ -114,24 +112,4 @@ const createReturnButton = () => {
         "IconReturn",
         "IconReturn"
     );
-};
-
-export default function DrawLevelsList(currentStage) {
-    clearStage(currentStage);
-    
-    const pageContainer = new Container();
-    setBackground(Sprite.from("BGLevelsList"), pageContainer);
-
-    const header = createHeader();
-    header.position.set(0,100);
-    pageContainer.addChild(header);
-
-    const nav = createNav();
-    nav.position.set(0, STATE.app.screen.height * 0.2 + 100);
-    pageContainer.addChild(nav);
-
-    const returnButton = createReturnButton();
-    pageContainer.addChild(returnButton.view);
-
-    currentStage.addChild(pageContainer);
 };
