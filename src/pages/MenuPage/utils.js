@@ -68,11 +68,16 @@ export const createSoundButton = () => {
         : 60;
     const iconY = STATE.app.screen.height - iconX - iconSize;
 
-    return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {
-        if (!sound.context.muted) {
-            sound.muteAll();
-        } else {
-            sound.unmuteAll();
-        }
-    });
+    return new Icon(iconX, iconY, undefined, iconSize, iconSize, 
+        () => {
+            if (!sound.context.muted) {
+                sound.muteAll();
+            } else {
+                sound.unmuteAll();
+            }
+
+        },
+        "IconSoundOff",
+        "IconSoundOn",
+    );
 };
