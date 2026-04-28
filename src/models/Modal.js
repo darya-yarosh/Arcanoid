@@ -12,7 +12,6 @@ export const MODAL_DATA = {
 export default class Modal {
     constructor(positionX, positionY, text, buttonsData) {
         this._view = new Container();
-        this._view.eventMode = 'passive';
 
         this._overlay = new Sprite(Texture.WHITE);
         this._overlay.width = STATE.app.screen.width;
@@ -35,9 +34,15 @@ export default class Modal {
         this._modalWrapper.height = MODAL_DATA.height;
         
         this._modalBG = new Sprite(Texture.from("modal"));
+        this._modalBG.tint = 0x00FFDEB8;
         this._modalBG.width = MODAL_DATA.width;
         this._modalBG.height = MODAL_DATA.height;
         this._modalWrapper.addChild(this._modalBG);
+
+        const frame = Sprite.from("frame");
+        frame.width = MODAL_DATA.width;
+        frame.height = MODAL_DATA.width;
+        this._modalWrapper.addChild(frame);
 
         this._buttonsList = new ButtonList(buttonsData);
         this._buttonsList.view.forEach((button) => {
@@ -49,12 +54,12 @@ export default class Modal {
             style: {
                 fontFamily: ButtonData.textFontFamily,
                 fontSize: 32,
-                fill: "#000",
+                fill: "#fff",
                 align: 'center',
             }
         });
         this._message.x = (MODAL_DATA.width - this._message.width) / 2;
-        this._message.y = 40;
+        this._message.y = 60;
 
         this._modalWrapper.addChild(this._message);
 
