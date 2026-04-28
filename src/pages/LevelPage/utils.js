@@ -39,13 +39,14 @@ const createModalWin = (levelId) => {
         y: (STATE.app.screen.height - 400) * 0.5,
     };
 
-    const buttonWidth = MODAL_DATA.width - 40;
+    const buttonWidth = MODAL_DATA.width - 80;
     const buttonHeight = 80;
+    const buttonsGap = 20;
     const buttonsData = [
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*2,
+                y: MODAL_DATA.height - 40 - buttonsGap*1 - (buttonHeight*2),
             },
             text: "Next",
             action: () => {
@@ -63,7 +64,7 @@ const createModalWin = (levelId) => {
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*1,
+                y: MODAL_DATA.height - 40 - buttonsGap*0 (buttonHeight * 1),
             },
             text: "Return",
             action: () => {
@@ -92,13 +93,14 @@ const createModalGameOver = (levelId) => {
         y: (STATE.app.screen.height - 400) * 0.5,
     };
 
-    const buttonWidth = MODAL_DATA.width - 40;
+    const buttonWidth = MODAL_DATA.width - 80;
     const buttonHeight = 80;
+    const buttonsGap = 20;
     const buttonsData = [
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*2,
+                y: MODAL_DATA.height - 40 - buttonsGap*1 - (buttonHeight * 2),
             },
             text: "Restart",
             action: () => {
@@ -116,7 +118,7 @@ const createModalGameOver = (levelId) => {
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*1,
+                y: MODAL_DATA.height - 40 - buttonsGap*0 - (buttonHeight * 1),
             },
             text: "Return",
             action: () => {
