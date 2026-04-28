@@ -246,7 +246,7 @@ export default function DrawLevel(currentStage, levelId) {
 
     const levelBounds = new LevelBounds(pageContainer);
     
-    const ball = new Ball(16, 0xffaa00, 10, "ball", 3);
+    const ball = new Ball(16, 10, "ball", 3);
     const paddle = new PlayerPlatform(undefined, 16, undefined, STATE.app.screen.height - 16 - 60, levelBounds);
     const health = new Text({
         text: `${ball.health}`,

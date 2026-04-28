@@ -1,28 +1,20 @@
-import { Container, Graphics, Sprite, Texture } from 'pixi.js';
+import { Container, Sprite, Texture } from 'pixi.js';
 import { sound } from '@pixi/sound';
 
 import { STATE } from '../../main';
 
 export default class Ball {
-    constructor(radius = 8, color = 0xffaa00, speed = 3, texture, health) {
+    constructor(radius = 8, speed = 3, texture, health) {
         this.health = health;
         this.radius = radius;
-        this.color = color;
         
         this._view = new Container();
 
-        this._circle = new Graphics();
-        this._circle.circle(0, 0, radius);
-        this._circle.fill(color);
-        this._view.addChild(this._circle);
-
-        if (texture) {
-            const sprite = new Sprite(Texture.from(texture));
-            sprite.width = radius * 2;
-            sprite.height = radius * 2;
-            sprite.anchor.set(0.5);
-            this._view.addChild(sprite);
-        }
+        const sprite = new Sprite(Texture.from(texture));
+        sprite.width = radius * 2;
+        sprite.height = radius * 2;
+        sprite.anchor.set(0.5);
+        this._view.addChild(sprite);
  
         this.x = STATE.app.screen.width / 2;
         this.y = STATE.app.screen.height - 50;
