@@ -1,6 +1,7 @@
 
 
 import { Container, Sprite, Texture } from "pixi.js";
+import { sound } from "@pixi/sound";
 
 import { STATE } from "../../main";
 
@@ -50,6 +51,7 @@ export default class PlayerPlatform {
     }
 
     onHit() {
+        sound.play("buttonClick");
         this._sprite.texture = Texture.from(PLATFORM_DATA.textureHit);
         setTimeout(() => {
             this._sprite.texture = Texture.from(PLATFORM_DATA.textureDefault);
