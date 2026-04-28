@@ -21,9 +21,8 @@ const assetsMap = {
         { alias: "modal", src: '/assets/interface/modal.png' },
     ],
     fonts: [
-        // { name: "ComicoroRu", url: "/assets/ComicoroRu.ttf" },
-        // { name: "AwakenSolid", url: "/assets/AwakenSolid.ttf" },
-        // { name: "TunnelFront", url: "/assets/TunnelFront.ttf" },
+        { alias: "font-1", src: "/assets/fonts/04B_30__.ttf" },
+        { alias: "font-2", src: "/assets/fonts/Mario-Kart-DS.ttf" },
     ],
     sounds: [
         { 
