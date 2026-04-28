@@ -49,58 +49,56 @@ export default class Ball {
         this.updatePosition();
     }
 
-    // Обновленная проверка столкновений с границами уровня
     checkLevelBoundsCollision(levelBounds) {
         const bounds = levelBounds.getBounds();
         let collided = false;
-        
-        // Левая граница
-        if (this.x - this.radius <= bounds.left) {
+
+        const isLeftBound = this.x - this.radius <= bounds.left;
+        if (isLeftBound) {
             this.x = bounds.left + this.radius;
             this.vx = -this.vx;
             collided = true;
         }
-        
-        // Правая граница
-        if (this.x + this.radius >= bounds.right) {
+
+        const isRightBound = this.x + this.radius >= bounds.right;
+        if (isRightBound) {
             this.x = bounds.right - this.radius;
             this.vx = -this.vx;
             collided = true;
         }
-        
-        // Верхняя граница
-        if (this.y - this.radius <= bounds.top) {
+
+        const isTopBound = this.y - this.radius <= bounds.top;
+        if (isTopBound) {
             this.y = bounds.top + this.radius;
             this.vy = -this.vy;
             collided = true;
         }
         
-        // Нижняя граница (игровая, обычно мяч падает)
-        if (this.y + this.radius >= bounds.bottom) {
-            // Можно обработать по-разному: либо смерть, либо отскок
-            // Здесь показываем, что мяч упал
+        const isBottomBound = this.y + this.radius >= bounds.bottom;
+        if (isBottomBound) {
             return false;
         }
         
         return collided;
     }
-    
-    // Проверка столкновений со стенами
-    checkWallCollision() {
-        // Левая и правая стены
-        if (this.x - this.radius <= 0) {
+
+    checkWindowCollision() {
+        const isLeftBound = this.x - this.radius <= 0;
+        if (isLeftBound) {
             this.x = this.radius;
             this.vx = -this.vx;
             return true;
         }
-        if (this.x + this.radius >= STATE.app.screen.width) {
+
+        const isRightBound = this.x + this.radius >= STATE.app.screen.width;
+        if (isRightBound) {
             this.x = STATE.app.screen.width - this.radius;
             this.vx = -this.vx;
             return true;
         }
-        
-        // Верхняя стена
-        if (this.y - this.radius <= 0) {
+
+        const isTopBound = this.y - this.radius <= 0;
+        if (isTopBound) {
             this.y = this.radius;
             this.vy = -this.vy;
             return true;
@@ -166,10 +164,11 @@ export default class Ball {
                 const overlap = this.radius - distance;
                 
                 // Check side of collision
-                if (Math.abs(dx) > Math.abs(dy)) {
+                const isHorizontalCollision = Math.abs(dx) > Math.abs(dy);
+                if (isHorizontalCollision) {
                     // Collision - horizontal
-                    if (dx > 0) {
-                        // right side
+                    const isRightSide = dx > 0;
+                    if (isRightSide) {
                         this.x += overlap;
                     } else {
                         // left side
@@ -178,8 +177,8 @@ export default class Ball {
                     this.vx = -this.vx;
                 } else {
                     // Collision - vertical 
-                    if (dy > 0) {
-                        // bottom side
+                    const isBottomSide = dy > 0;
+                    if (isBottomSide) {
                         this.y += overlap;
                     } else {
                         // top side
