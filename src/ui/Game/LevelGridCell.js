@@ -26,12 +26,12 @@ export const CELL_TYPES = {
         action: null,
         points: 30,
     },
-    4: {
-        health: 1,
-        texture: "block1",
-        action: "bomb",
-        points: 0,
-    },
+    // 4: {
+    //     health: 1,
+    //     texture: "block1",
+    //     action: "bomb",
+    //     points: 0,
+    // },
 };
 
 export default class LevelGridCell {
@@ -79,7 +79,7 @@ export default class LevelGridCell {
 
         switch (CELL_TYPES[this._cellType].health - this.health) {
             case 1: {
-                this._damageTexture.texture = Texture.from("block-destroy-3");
+                this._damageTexture.texture = Texture.from("block-destroy-1");
                 break;
             }
             case 2: {
@@ -87,7 +87,7 @@ export default class LevelGridCell {
                 break;
             }
             case 3: {
-                this._damageTexture.texture = Texture.from("block-destroy-1");
+                this._damageTexture.texture = Texture.from("block-destroy-3");
                 break;
             }
             default: {

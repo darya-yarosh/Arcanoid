@@ -16,8 +16,8 @@ export default class ButtonList {
                 buttonsInfo[i].width,
                 buttonsInfo[i].height,
                 buttonsInfo[i].disabled,
-            )
-            this._view.push(button)
+            );
+            this._view.push(button);
         }
     }
 

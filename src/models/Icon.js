@@ -45,11 +45,14 @@ export default class Icon {
         this._icon.isDown = false;
         this._icon.isOver = false;
 
-        this._text = new Text(text, {
-            fontFamily: IconData.textFontFamily,
-            fontSize: 32,
-            fill: IconData.textColorDefault,
-            align: 'center',
+        this._text = new Text({
+            text, 
+            style: {
+                fontFamily: IconData.textFontFamily,
+                fontSize: 32,
+                fill: IconData.textColorDefault,
+                align: 'center',
+            }
         });
         this._text.eventMode = 'none';
         this._text.x = positionX + (IconData.width - this._text.width) / 2;
@@ -107,6 +110,6 @@ export default class Icon {
 
         this._icon.texture = Texture.from(this._textureDefault);
 
-        this._text.style.fill = IconData.textColorDefault
+        this._text.style.fill = IconData.textColorDefault;
     }
 };

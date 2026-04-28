@@ -36,11 +36,14 @@ export default class Button {
         this._button.isDown = false;
         this._button.isOver = false;
 
-        this._text = new Text(text, {
-            fontFamily: ButtonData.textFontFamily,
-            fontSize: 32,
-            fill: ButtonData.textColorDefault,
-            align: 'center',
+        this._text = new Text({
+            text, 
+            style: {
+                fontFamily: ButtonData.textFontFamily,
+                fontSize: 32,
+                fill: ButtonData.textColorDefault,
+                align: 'center',
+            }
         });
         this._text.eventMode = 'none';
         this._text.x = positionX + (width - this._text.width) / 2;
@@ -120,6 +123,6 @@ export default class Button {
 
         this._button.texture = Texture.from(ButtonData.textureDefault);
 
-        this._text.style.fill = ButtonData.textColorDefault
+        this._text.style.fill = ButtonData.textColorDefault;
     }
 };

@@ -28,7 +28,7 @@ export async function preload() {
         if (soundAsset.alias === "music") {
             initBgMusic(soundAsset);
         } else {
-        sound.add(soundAsset.alias, soundAsset.src);
+            sound.add(soundAsset.alias, soundAsset.src);
         }
     });
     await Assets.load([...assetsMap.sprites]);

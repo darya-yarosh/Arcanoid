@@ -23,7 +23,7 @@ const createLevelGrid = (levelId) => {
     levelGrid.view.position.set(
         (STATE.app.screen.width - levelGrid.width) / 2,
         STATE.app.screen.height * 0.1
-    )
+    );
 
     return levelGrid;
 };
@@ -220,11 +220,14 @@ export default function DrawLevel(currentStage, levelId) {
     const pageContainer = new Container();
     setBackground(Sprite.from("BGLevel"), pageContainer);
 
-    const score = new Text(`Score: ${STATE.currentLevelState}`, {
-        fontFamily: TextData.textFontFamily,
-        fontSize: 32,
-        fill: TextData.textColorDefault,
-        align: 'center',
+    const score = new Text({
+        text: `Score: ${STATE.currentLevelState}`, 
+        style: {
+            fontFamily: TextData.textFontFamily,
+            fontSize: 32,
+            fill: TextData.textColorDefault,
+            align: 'center',
+        }
     });
     score.position.set(
         STATE.app.screen.width * 0.05,
@@ -245,12 +248,12 @@ export default function DrawLevel(currentStage, levelId) {
 
     tickerId = () => {
         gameCycle(levelId, ball, bricks, paddle, levelBounds, score);
-    }
+    };
     STATE.app.ticker.add(tickerId);
     
     const clearTicker = () => {
         STATE.app.ticker.remove(tickerId);
-    }
+    };
 
     const returnButton = createReturnButton(clearTicker);
 

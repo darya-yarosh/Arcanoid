@@ -34,12 +34,12 @@ export default class LevelGrid {
                     column,
                 );
                 this._mapSprite.push(cell);
-            })
+            });
         });
 
         this._mapSprite.forEach((child) => {
             this._view.addChild(child.view);
-        })
+        });
     }
 
     get map() {

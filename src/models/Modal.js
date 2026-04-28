@@ -42,13 +42,16 @@ export default class Modal {
         this._buttonsList = new ButtonList(buttonsData);
         this._buttonsList.view.forEach((button) => {
             this._modalWrapper.addChild(button.view);
-        })
+        });
 
-        this._message = new Text(text, {
-            fontFamily: ButtonData.textFontFamily,
-            fontSize: 32,
-            fill: "#000",
-            align: 'center',
+        this._message = new Text({
+            text, 
+            style: {
+                fontFamily: ButtonData.textFontFamily,
+                fontSize: 32,
+                fill: "#000",
+                align: 'center',
+            }
         });
         this._message.x = (MODAL_DATA.width - this._message.width) / 2;
         this._message.y = 40;

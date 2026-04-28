@@ -10,12 +10,15 @@ import { clearStage } from "../utils/clearStage";
 import { setBackground } from "../utils/setBackground";
 
 export const createText = (options = {}) => {
-    return new Text("Choose level:", {
-        fontFamily: TextData.textFontFamily,
-        fontSize: 48,
-        align: "center",
-        fill: TextData.textColorDefault,
-        ...options,
+    return new Text({
+        text: "Choose level:", 
+        style: {
+            fontFamily: TextData.textFontFamily,
+            fontSize: 48,
+            align: "center",
+            fill: TextData.textColorDefault,
+            ...options,
+        }
     });
 };
 
@@ -85,8 +88,8 @@ const createNav = () => {
 
     const buttonsList = new ButtonList(buttonPositions);
     buttonsList.view.forEach(button => {
-        buttonsWrap.addChild(button.view)
-    })
+        buttonsWrap.addChild(button.view);
+    });
 
     navContainer.addChild(buttonsWrap);
     return navContainer;
