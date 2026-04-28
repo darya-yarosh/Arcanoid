@@ -1,16 +1,14 @@
-import { Container, Sprite } from "pixi.js";
+import { Container } from "pixi.js";
 import { sound } from "@pixi/sound";
 
-import { PAGES, STATE } from "../main";
+import { PAGES, STATE } from "../../main";
 
-import Icon from "../models/Icon";
-import ButtonList from "../models/ButtonList";
-import { Logo } from "../ui/Interface/Logo";
+import Icon from "../../models/Icon";
+import ButtonList from "../../models/ButtonList";
 
-import { clearStage } from "../utils/clearStage";
-import { setBackground } from "../utils/setBackground";
+import { Logo } from "../../ui/Interface/Logo";
 
-const createHeader = () => {
+export const createHeader = () => {
     const headerContainter = new Container();
     headerContainter.width = STATE.app.screen.width;
 
@@ -28,7 +26,7 @@ const createHeader = () => {
     return headerContainter;
 };
 
-const createNav = () => {
+export const createNav = () => {
     const navContainer = new Container();
     navContainer.width = STATE.app.screen.width;
 
@@ -63,44 +61,23 @@ const createNav = () => {
     return navContainer;
 };
 
-const createSoundButton = () => {
+export const createSoundButton = () => {
     const iconSize = 96;
     const iconX = STATE.app.screen.width <= 500
         ? 40
         : 60;
     const iconY = STATE.app.screen.height - iconX - iconSize;
 
-    return new Icon(iconX, iconY, undefined, iconSize, iconSize, () => {
-        if (!sound.context.muted) {
-            sound.muteAll();
-        } else {
-            sound.unmuteAll();
-        }
-    });
+    return new Icon(iconX, iconY, undefined, iconSize, iconSize, 
+        () => {
+            if (!sound.context.muted) {
+                sound.muteAll();
+            } else {
+                sound.unmuteAll();
+            }
+
+        },
+        "IconSoundOff",
+        "IconSoundOn",
+    );
 };
-
-/**
- * 
- * @param {Container} currentStage 
- */
-const DrawMenu = (currentStage) => {
-    clearStage(currentStage);
-
-    const menuContainer = new Container();
-    setBackground(Sprite.from("BGMenu"), menuContainer);
-
-    const header = createHeader();
-    header.position.set(0,100);
-    menuContainer.addChild(header);
-
-    const nav = createNav();
-    nav.position.set(0,200);
-    menuContainer.addChild(nav);
-
-    const icon = createSoundButton();
-    menuContainer.addChild(icon.view);
-
-    currentStage.addChild(menuContainer);
-};
-
-export default DrawMenu;

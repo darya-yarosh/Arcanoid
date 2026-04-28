@@ -1,0 +1,27 @@
+import { Container, Sprite } from "pixi.js";
+
+import { clearStage } from "../../utils/clearStage";
+import { setBackground } from "../../utils/setBackground";
+import { createHeader, createNav, createSoundButton } from "./utils";
+
+const DrawMenu = (currentStage) => {
+    clearStage(currentStage);
+
+    const menuContainer = new Container();
+    setBackground(Sprite.from("BG"), menuContainer);
+
+    const header = createHeader();
+    header.position.set(0,100);
+    menuContainer.addChild(header);
+
+    const nav = createNav();
+    nav.position.set(0,200);
+    menuContainer.addChild(nav);
+
+    const icon = createSoundButton();
+    menuContainer.addChild(icon.view);
+
+    currentStage.addChild(menuContainer);
+};
+
+export default DrawMenu;

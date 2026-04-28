@@ -31,5 +31,21 @@ export async function preload() {
             sound.add(soundAsset.alias, soundAsset.src);
         }
     });
+
+    const promises = [];
+    assetsMap.fonts.map((font) => {
+        const promise = new Promise(() => {
+            Assets.load({
+                src: font.src,
+                data: {
+                    family: font.alias,
+                }
+            });
+        });
+
+        return promise;
+    });
+
+    await Promise.all(promises);
     await Assets.load([...assetsMap.sprites]);
 }

@@ -1,23 +1,13 @@
-import { Container, Sprite, Text } from "pixi.js";
+import { Container } from "pixi.js";
 import { sound } from "@pixi/sound";
 
-import { PAGES, STATE } from "../main";
+import { PAGES, STATE } from "../../main";
+import Modal, { MODAL_DATA } from "../../models/Modal";
+import LevelGrid from "../../ui/Game/LevelGrid";
+import { tickerId } from ".";
+import Icon from "../../models/Icon";
 
-import { TextData } from "../constants/interface";
-
-import Icon from "../models/Icon";
-import LevelGrid from "../ui/Game/LevelGrid";
-import PlayerPlatform from "../ui/Game/PlayerPlatform";
-import Ball from "../ui/Game/Ball";
-import LevelBounds from "../ui/Game/LevelBounds";
-import Modal, { MODAL_DATA } from "../models/Modal";
-
-import { clearStage } from "../utils/clearStage";
-import { setBackground } from "../utils/setBackground";
-
-let tickerId = null;
-
-const createLevelGrid = (levelId) => {
+export const createLevelGrid = (levelId) => {
     const levelGrid = new LevelGrid(levelId, 10, 10);
 
     levelGrid.view.position.set(
@@ -28,7 +18,7 @@ const createLevelGrid = (levelId) => {
     return levelGrid;
 };
 
-const createLevelGridWrapper = (levelGrid) => {
+export const createLevelGridWrapper = (levelGrid) => {
     const gridContainer = new Container({
         position: {
             x: 0,
@@ -49,13 +39,14 @@ const createModalWin = (levelId) => {
         y: (STATE.app.screen.height - 400) * 0.5,
     };
 
-    const buttonWidth = MODAL_DATA.width - 40;
+    const buttonWidth = MODAL_DATA.width - 80;
     const buttonHeight = 80;
+    const buttonsGap = 20;
     const buttonsData = [
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*2,
+                y: MODAL_DATA.height - 40 - buttonsGap*1 - (buttonHeight*2),
             },
             text: "Next",
             action: () => {
@@ -73,7 +64,7 @@ const createModalWin = (levelId) => {
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*1,
+                y: MODAL_DATA.height - 40 - buttonsGap*0 (buttonHeight * 1),
             },
             text: "Return",
             action: () => {
@@ -102,13 +93,14 @@ const createModalGameOver = (levelId) => {
         y: (STATE.app.screen.height - 400) * 0.5,
     };
 
-    const buttonWidth = MODAL_DATA.width - 40;
+    const buttonWidth = MODAL_DATA.width - 80;
     const buttonHeight = 80;
+    const buttonsGap = 20;
     const buttonsData = [
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*2,
+                y: MODAL_DATA.height - 40 - buttonsGap*1 - (buttonHeight * 2),
             },
             text: "Restart",
             action: () => {
@@ -126,7 +118,7 @@ const createModalGameOver = (levelId) => {
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - (20 + buttonHeight)*1,
+                y: MODAL_DATA.height - 40 - buttonsGap*0 - (buttonHeight * 1),
             },
             text: "Return",
             action: () => {
@@ -150,12 +142,30 @@ const createModalGameOver = (levelId) => {
 };
 
 const pauseGame = (ball, paddle) => {
-    STATE.app.ticker.stop();
     ball.stop();
     paddle.pause();
+    STATE.app.ticker.remove(tickerId);
 };
 
-const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, health) => {
+const decreaseBallHealth = (ball, healthText) => {
+    ball.health = ball.health - 1;
+    healthText.text = `Health: ${ball.health}`;
+};
+
+const handleBallFallen = (ball, healthText, paddle, levelId) => {
+    decreaseBallHealth(ball, healthText);
+
+    if (ball.health > 0) {
+        ball.reset();
+    } else {
+        pauseGame(ball, paddle);
+
+        const modal = createModalGameOver(levelId);
+        STATE.app.stage.addChild(modal.view);
+    }
+};
+
+export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, healthText) => {
     score.text = `Score: ${STATE.currentLevelState}`;
     ball.move();
     
@@ -181,21 +191,11 @@ const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, health) =>
     }
     
     if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
-        ball.health = ball.health - 1;
-        health.text = ball.health;
-
-        if (ball.health > 0) {
-            ball.reset();
-        } else {
-            pauseGame(ball, paddle);
-    
-            const modal = createModalGameOver(levelId);
-            STATE.app.stage.addChild(modal.view);
-        }
+        handleBallFallen(ball, healthText, paddle, levelId);
     }
 };
 
-const createReturnButton = (action) => {
+export const createReturnButton = (action) => {
     const iconSize = 96;
     const iconX = STATE.app.screen.width <= 500
         ? 40
@@ -213,72 +213,5 @@ const createReturnButton = (action) => {
         },
         "IconReturn",
         "IconReturn",
-        "IconReturn"
     );
-};
-
-export default function DrawLevel(currentStage, levelId) {
-    clearStage(currentStage);
-    STATE.currentLevelState = 0;
-    tickerId = null;
-
-    const pageContainer = new Container();
-    setBackground(Sprite.from("BGLevel"), pageContainer);
-
-    const score = new Text({
-        text: `Score: ${STATE.currentLevelState}`, 
-        style: {
-            fontFamily: TextData.textFontFamily,
-            fontSize: 32,
-            fill: TextData.textColorDefault,
-            align: 'center',
-        }
-    });
-    score.position.set(
-        STATE.app.screen.width * 0.05,
-        STATE.app.screen.width * 0.05 + score.height
-    );
-    pageContainer.addChild(score);
-
-    const levelGrid = createLevelGrid(levelId);
-    const levelGridWrapper = createLevelGridWrapper(levelGrid);
-    pageContainer.addChild(levelGridWrapper);
-
-    const levelBounds = new LevelBounds(pageContainer);
-    
-    const ball = new Ball(16, 0xffaa00, 10, "ball", 3);
-    const paddle = new PlayerPlatform(undefined, 16, undefined, STATE.app.screen.height - 16 - 60, levelBounds);
-    const health = new Text({
-        text: `${ball.health}`,
-        style: {
-            fontFamily: TextData.textFontFamily,
-            fontSize: 24,
-            align: "center",
-            fill: "#fff",
-        },
-    });
-    health.position.set(
-        STATE.app.screen.width - 100 - health.width, 
-        STATE.app.screen.width * 0.05 + score.height
-    );
-    
-    const bricks = levelGrid.cellsList;
-
-    tickerId = () => {
-        gameCycle(levelId, ball, bricks, paddle, levelBounds, score, health);
-    };
-    STATE.app.ticker.add(tickerId);
-    
-    const clearTicker = () => {
-        STATE.app.ticker.remove(tickerId);
-    };
-
-    const returnButton = createReturnButton(clearTicker);
-
-    pageContainer.addChild(health);
-    pageContainer.addChild(returnButton.view);
-    pageContainer.addChild(ball.view);
-    pageContainer.addChild(paddle.view);
-
-    currentStage.addChild(pageContainer);
 };
