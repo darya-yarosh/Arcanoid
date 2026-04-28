@@ -40,6 +40,8 @@ export default class LevelGridCell {
         this._view.eventMode = 'passive';
         this._view.x = positionX;
         this._view.y = positionY;
+        this._view.width = LevelGridCellData.width;
+        this._view.height = LevelGridCellData.height;
 
         this._cellType = cellType;
         this.health = CELL_TYPES[cellType].health;
@@ -47,6 +49,8 @@ export default class LevelGridCell {
         this._cell = new Sprite(Texture.from(CELL_TYPES[cellType].texture));
         this._cell.cursor = 'default';
         this._cell.eventMode = 'passive';
+        this._cell.width = LevelGridCellData.width;
+        this._cell.height = LevelGridCellData.height;
 
         this._cell.isDown = false;
         this._cell.isOver = false;
