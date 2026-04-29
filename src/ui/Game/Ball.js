@@ -108,6 +108,11 @@ export default class Ball {
             this.vy = -this.vy;
             collided = true;
         }
+
+        const isBottomBound = this.y + this.radius >= bounds.bottom;
+        if (isBottomBound) {
+            return false;
+        }
         
         return collided;
     }
