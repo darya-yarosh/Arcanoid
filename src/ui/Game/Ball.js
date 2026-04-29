@@ -3,8 +3,13 @@ import { sound } from '@pixi/sound';
 
 import { STATE } from '../../main';
 
+const BALL_DATA = {
+    radius: 8,
+    speed: 3,
+};
+
 export default class Ball {
-    constructor(radius = 8, speed = 3, texture, health) {
+    constructor(radius = BALL_DATA.radius, speed = BALL_DATA.speed, texture, health) {
         this.health = health;
         this.radius = radius;
         this.isMoving = false;
@@ -242,7 +247,7 @@ export default class Ball {
         this.vx *= multiplier;
         this.vy *= multiplier;
         
-        const maxSpeed = 12;
+        const maxSpeed = 6;
         this.vx = Math.min(Math.max(this.vx, -maxSpeed), maxSpeed);
         this.vy = Math.min(Math.max(this.vy, -maxSpeed), maxSpeed);
     }

@@ -7,7 +7,8 @@ import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../constants/interface";
 
 export const MODAL_DATA = {
     width: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 400 : SCREEN_SIZE.width - 100,
-    height: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 400 : SCREEN_SIZE.width - 100,
+    height: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 400 : SCREEN_SIZE.height / 1.8,
+    fontSize: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 32 : 24,
 };
 
 export default class Modal {
@@ -42,7 +43,7 @@ export default class Modal {
 
         const frame = Sprite.from("frame");
         frame.width = MODAL_DATA.width;
-        frame.height = MODAL_DATA.width;
+        frame.height = MODAL_DATA.height;
         this._modalWrapper.addChild(frame);
 
         this._buttonsList = new ButtonList(buttonsData);
@@ -54,7 +55,7 @@ export default class Modal {
             text, 
             style: {
                 fontFamily: ButtonData.textFontFamily,
-                fontSize: 32,
+                fontSize: MODAL_DATA.fontSize,
                 fill: "#fff",
                 align: 'center',
             }

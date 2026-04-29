@@ -9,6 +9,7 @@ import LevelBounds from "../../ui/Game/LevelBounds";
 import { clearStage } from "../../utils/clearStage";
 import { setBackground } from "../../utils/setBackground";
 import { createHealthInfo, createLevelGrid, createLevelGridWrapper, createReturnButton, createScoreInfo, gameCycle } from "./utils";
+import { isMobileDevice } from "../../utils/isMobileDevice";
 
 export let tickerId = null;
 
@@ -28,7 +29,10 @@ export default function DrawLevel(currentStage, levelId) {
     pageContainer.addChild(levelGridWrapper);
 
     const levelBounds = new LevelBounds(pageContainer, undefined, undefined, 0);
-    const ball = new Ball(16, 10, "ball", 3);
+
+    const ballInitSpeed = isMobileDevice() ? 5 : 10;
+    const ball = new Ball(16, ballInitSpeed, "ball", 3);
+    
     const paddle = new PlayerPlatform(STATE.app.screen.height - 16 - 100, levelBounds);
     
     ball.stickToPaddle(paddle);

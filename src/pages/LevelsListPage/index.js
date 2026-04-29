@@ -13,11 +13,11 @@ export default function DrawLevelsList(currentStage) {
     setBackground(Sprite.from("BG"), pageContainer);
 
     const header = createHeader();
-    header.position.set(0,STATE.app.screen.height * 0.2);
+    header.position.set(0, (STATE.app.screen.height * 0.2) - (header.height / 3));
     pageContainer.addChild(header);
 
     const nav = createNav();
-    nav.position.set(0, STATE.app.screen.height * 0.3 + 100);
+    nav.position.set(0, (STATE.app.screen.height * 0.2) + header.height + 60);
     pageContainer.addChild(nav);
 
     const returnButton = createReturnButton();
