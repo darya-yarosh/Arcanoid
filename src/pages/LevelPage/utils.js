@@ -97,8 +97,8 @@ export const createLevelGridWrapper = (levelGrid) => {
 
 const createModalWin = (levelId) => {
     const modalPosition = {
-        x: (STATE.app.screen.width - 400) * 0.5,
-        y: (STATE.app.screen.height - 400) * 0.5,
+        x: (STATE.app.screen.width - MODAL_DATA.width) * 0.5,
+        y: (STATE.app.screen.height - MODAL_DATA.height) * 0.5,
     };
 
     const buttonWidth = MODAL_DATA.width - 80;
