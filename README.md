@@ -3,7 +3,7 @@
 Project on Pixi.JS.
 
 > ### ``Versions``
-> * Project: 0.1.0
+> * Project: 0.1.1
 > * Pixi.JS: 8.8.1
 
 ## Netlify Demo
