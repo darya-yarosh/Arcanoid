@@ -1,5 +1,17 @@
 # Arcanoid
 
+Project on Pixi.JS.
+
+> ### ``Versions``
+> * Project: 0.1.0
+> * Pixi.JS: 8.8.1
+
+## Netlify Demo
+
+[Link](https://yds-arcanoid.netlify.app)
+
+## Requirements (russian)
+
 * Технические требования:
 1) Язык: JavaScript;
 2) Библиотеки: можно любые;
