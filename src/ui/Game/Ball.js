@@ -137,16 +137,15 @@ export default class Ball {
             ballBottom > paddleTop && 
             ballTop < paddleBottom) {
             
-            // Вычисляем точку удара относительно центра ракетки
+            // Calculating the point of impact relative to the center of the racket
             const hitPoint = (this.x - paddleLeft) / paddle.width;
-            const angle = (hitPoint - 0.5) * Math.PI / 2; // -45° до +45°
+            const angle = (hitPoint - 0.5) * Math.PI / 2; // from -45° to +45°
+
+            const newSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            this.vx = Math.sin(angle) * newSpeed;
+            this.vy = -Math.cos(angle) * newSpeed;
             
-            // Новая скорость
-            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-            this.vx = Math.sin(angle) * speed;
-            this.vy = -Math.cos(angle) * speed;
-            
-            // Корректируем позицию, чтобы мяч не застрял
+            // Adjust the position so that the ball does not get stuck.
             this.y = paddleTop - this.radius;
             paddle.onHit();
             
