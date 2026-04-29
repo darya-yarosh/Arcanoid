@@ -72,9 +72,18 @@ export const createHealthInfo = (ballHealth) => {
 export const createLevelGrid = (levelId) => {
     const levelGrid = new LevelGrid(levelId, 10, 10);
 
+    const isLandscape = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape;
+
+    const isOverflow = levelGrid.width > (STATE.app.screen.width - 60);
+    const difference = isOverflow
+        ? ((STATE.app.screen.width - 60) * 1 / levelGrid.width)
+        : 1;
+    
+    levelGrid.view.scale.set(difference, difference);
+    
     levelGrid.view.position.set(
-        (STATE.app.screen.width - levelGrid.width) / 2,
-        STATE.app.screen.height * 0.1
+        (STATE.app.screen.width - (levelGrid.width * difference)) / 2,
+        isLandscape ? STATE.app.screen.height * 0.1 : 148
     );
 
     return levelGrid;
