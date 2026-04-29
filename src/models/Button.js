@@ -1,6 +1,8 @@
 import { Container, Sprite, Text, Texture } from "pixi.js";
 import { sound } from "@pixi/sound";
 
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../constants/interface";
+
 export const ButtonData = {
     width: 226,
     height: 96,
@@ -8,6 +10,7 @@ export const ButtonData = {
     textureDown: 'ButtonDown',
     textureOver: 'ButtonOver',
     textFontFamily: 'font-1',
+    textSize: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 32 : 24,
     textColorDefault: 'white',
     textColorDown: '#636363',
     textColorOver: '#636363',
@@ -40,7 +43,7 @@ export default class Button {
             text, 
             style: {
                 fontFamily: ButtonData.textFontFamily,
-                fontSize: 32,
+                fontSize: ButtonData.textSize,
                 fill: ButtonData.textColorDefault,
                 align: 'center',
             }
