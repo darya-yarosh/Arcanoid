@@ -69,10 +69,10 @@ export default class LevelBounds {
     }
 
     createBounds() {
-        // Frist version of creating bounds
+        // Frist variant of creating bounds
         // this.createBoundsWithGraphics();
         
-        // Second version of creating bounds
+        // Second variant of creating bounds
         this.createBoundsWithSprite();
     }
     

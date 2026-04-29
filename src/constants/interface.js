@@ -12,13 +12,6 @@ export const SCREEN_SIZE = {
         : SCREEN_ORIENTATION_TYPES.landscape,
 };
 
-export const COLORS = {
-    lightBlue: 0x6fa2cc,
-    black: 0x290025,
-    gray: 0xc2c2c2,
-    red: 0xff0000,
-};
-
 export const TextData = {
     textFontFamily: 'font-1',
     textColorDefault: 'white',

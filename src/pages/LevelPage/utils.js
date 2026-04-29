@@ -224,6 +224,7 @@ const decreaseBallHealth = (ball, healthText) => {
 };
 
 const handleBallFallen = (ball, healthText, paddle, levelId, onLaunch) => {
+    sound.play("hit");
     decreaseBallHealth(ball, healthText);
 
     if (ball.health > 0) {

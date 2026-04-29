@@ -22,7 +22,6 @@ const assetsMap = {
     ],
     fonts: [
         { alias: "font-1", src: "/assets/fonts/04B_30__.ttf" },
-        { alias: "font-2", src: "/assets/fonts/Mario-Kart-DS.ttf" },
     ],
     sounds: [
         { 
