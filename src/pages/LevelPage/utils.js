@@ -1,11 +1,15 @@
 import { Container } from "pixi.js";
 import { sound } from "@pixi/sound";
 
+import { tickerId } from ".";
+
 import { PAGES, STATE } from "../../main";
 import Modal, { MODAL_DATA } from "../../models/Modal";
+
 import LevelGrid from "../../ui/Game/LevelGrid";
-import { tickerId } from ".";
-import Icon from "../../models/Icon";
+import { createPageIconButton } from "../../ui/Interface/PageIconButton";
+
+import { saveState } from "../../utils/init/state";
 
 export const createLevelGrid = (levelId) => {
     const levelGrid = new LevelGrid(levelId, 10, 10);
@@ -64,7 +68,7 @@ const createModalWin = (levelId) => {
         {
             position: {
                 x: (MODAL_DATA.width - buttonWidth) * 0.5,
-                y: MODAL_DATA.height - 40 - buttonsGap*0 (buttonHeight * 1),
+                y: MODAL_DATA.height - 40 - buttonsGap*0 - (buttonHeight * 1),
             },
             text: "Return",
             action: () => {
@@ -83,7 +87,7 @@ const createModalWin = (levelId) => {
 
     sound.play("gameWin");
 
-    const modal = new Modal(modalPosition.x, modalPosition.y, "You win!", buttonsData);
+    const modal = new Modal(modalPosition.x, modalPosition.y, "You won!", buttonsData);
     return modal;
 };
 
@@ -152,11 +156,15 @@ const decreaseBallHealth = (ball, healthText) => {
     healthText.text = `Health: ${ball.health}`;
 };
 
-const handleBallFallen = (ball, healthText, paddle, levelId) => {
+const handleBallFallen = (ball, healthText, paddle, levelId, onLaunch) => {
     decreaseBallHealth(ball, healthText);
 
     if (ball.health > 0) {
         ball.reset();
+        ball.stickToPaddle(paddle);
+
+        STATE.app.stage.on('pointertap', onLaunch);
+        STATE.app.ticker.start();
     } else {
         pauseGame(ball, paddle);
 
@@ -165,53 +173,48 @@ const handleBallFallen = (ball, healthText, paddle, levelId) => {
     }
 };
 
-export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, healthText) => {
+export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, healthText, onLaunch) => {
     score.text = `Score: ${STATE.currentLevelState}`;
+
     ball.move();
     
-    ball.checkLevelBoundsCollision(levelBounds);
-    ball.checkPaddleCollision(paddle);
-    
-    if (!bricks || bricks.length === 0) {
-        pauseGame(ball, paddle);
+    if (!ball.isSticked && ball.isMoving) {
+        ball.checkLevelBoundsCollision(levelBounds);
+        ball.checkPaddleCollision(paddle);
+        
+        if (!bricks || bricks.length === 0) {
+            pauseGame(ball, paddle);
 
-        STATE.levelState[levelId - 1] = STATE.currentLevelState;
-        STATE.levelState[levelId] = 0;
-        STATE.currentLevelState = 0;
+            STATE.levelState[levelId - 1] = STATE.currentLevelState;
+            STATE.levelState[levelId] = 0;
+            STATE.currentLevelState = 0;
+            saveState();
 
-        const modal = createModalWin(levelId);
-        STATE.app.stage.addChild(modal.view);
+            const modal = createModalWin(levelId);
+            STATE.app.stage.addChild(modal.view);
 
-        return;
-    }
+            return;
+        }
 
-    const hit = ball.checkBricksCollision(bricks);
-    if (hit) {
-        ball.increaseSpeed(1.02);
-    }
-    
-    if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
-        handleBallFallen(ball, healthText, paddle, levelId);
+        const hit = ball.checkBricksCollision(bricks);
+        if (hit) {
+            ball.increaseSpeed(1.02);
+        }
+        
+        if (ball.isFallen(levelBounds.getBounds().bottom + ball.radius)) {
+            handleBallFallen(ball, healthText, paddle, levelId, onLaunch);
+        }
     }
 };
 
 export const createReturnButton = (action) => {
-    const iconSize = 96;
-    const iconX = STATE.app.screen.width <= 500
-        ? 40
-        : 60;
-    const iconY = STATE.app.screen.height - iconX - iconSize;
-
-    return new Icon(
-        iconX, iconY, 
-        undefined, 
-        iconSize, iconSize, 
-        () => {
+    return createPageIconButton({
+        action: () => {
             action();
             STATE.currentPage = PAGES.levelsList;
             STATE.currentPage.draw();
         },
-        "IconReturn",
-        "IconReturn",
-    );
+        textureActive: "IconReturn",
+        textureUnactive: "IconReturn",
+    });
 };

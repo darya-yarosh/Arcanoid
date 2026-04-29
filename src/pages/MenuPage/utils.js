@@ -3,10 +3,10 @@ import { sound } from "@pixi/sound";
 
 import { PAGES, STATE } from "../../main";
 
-import Icon from "../../models/Icon";
 import ButtonList from "../../models/ButtonList";
 
 import { Logo } from "../../ui/Interface/Logo";
+import { createPageIconButton } from "../../ui/Interface/PageIconButton";
 
 export const createHeader = () => {
     const headerContainter = new Container();
@@ -62,22 +62,15 @@ export const createNav = () => {
 };
 
 export const createSoundButton = () => {
-    const iconSize = 96;
-    const iconX = STATE.app.screen.width <= 500
-        ? 40
-        : 60;
-    const iconY = STATE.app.screen.height - iconX - iconSize;
-
-    return new Icon(iconX, iconY, undefined, iconSize, iconSize, 
-        () => {
+    return createPageIconButton({
+        action: () => {
             if (!sound.context.muted) {
                 sound.muteAll();
             } else {
                 sound.unmuteAll();
             }
-
         },
-        "IconSoundOff",
-        "IconSoundOn",
-    );
+        textureActive: "IconSoundOn",
+        textureUnactive: "IconSoundOff",
+    });
 };

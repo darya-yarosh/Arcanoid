@@ -1,13 +1,11 @@
-
-
 import { Container, Sprite, Texture } from "pixi.js";
 import { sound } from "@pixi/sound";
 
 import { STATE } from "../../main";
 
 const PLATFORM_DATA = {
-    widthDefault: 100,
-    heightDefault: 32,
+    widthDefault: 200,
+    heightDefault: 64,
     textureDefault: "platform",
     textureHit: "platformHit",
 };
@@ -16,7 +14,7 @@ export default class PlayerPlatform {
     constructor(y, levelBounds) {
         this.width = PLATFORM_DATA.widthDefault;
         this.height = PLATFORM_DATA.heightDefault;
-        this.x = STATE.app.screen.width / 2 - PLATFORM_DATA.widthDefault / 2;
+        this.x = (STATE.app.screen.width - PLATFORM_DATA.widthDefault) / 2;
         this.y = y;
         
         this._view = new Container();
@@ -26,7 +24,7 @@ export default class PlayerPlatform {
         this._sprite = new Sprite(Texture.from(PLATFORM_DATA.textureDefault));
         this._sprite.width = PLATFORM_DATA.widthDefault;
         this._sprite.height = PLATFORM_DATA.heightDefault;
-        this._sprite.scale.set(1.5, 1.5);
+
         this._view.addChild(this._sprite);
 
         this._minX = levelBounds.getBounds().left;

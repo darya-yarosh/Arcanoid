@@ -5,7 +5,8 @@ import { PAGES, STATE } from "../../main";
 import { TextData } from "../../constants/interface";
 
 import ButtonList from "../../models/ButtonList";
-import Icon from "../../models/Icon";
+
+import { createPageIconButton } from "../../ui/Interface/PageIconButton";
 
 export const createText = (options = {}) => {
     return new Text({
@@ -94,21 +95,12 @@ export const createNav = () => {
 };
 
 export const createReturnButton = () => {
-    const iconSize = 96;
-    const iconX = STATE.app.screen.width <= 500
-        ? 40
-        : 60;
-    const iconY = STATE.app.screen.height - iconX - iconSize;
-
-    return new Icon(
-        iconX, iconY, 
-        undefined, 
-        iconSize, iconSize, 
-        () => {
+    return createPageIconButton({
+        action: () => {
             STATE.currentPage = PAGES.menu;
             STATE.currentPage.draw();
         },
-        "IconReturn",
-        "IconReturn",
-    );
+        textureActive: "IconReturn",
+        textureUnactive: "IconReturn",
+    });
 };

@@ -7,6 +7,9 @@ export default class Ball {
     constructor(radius = 8, speed = 3, texture, health) {
         this.health = health;
         this.radius = radius;
+        this.isMoving = false;
+        this.isSticked = true;
+        this.paddle = null;
         
         this._view = new Container();
 
@@ -20,8 +23,8 @@ export default class Ball {
         this.y = STATE.app.screen.height - 50;
         
         this.speed = speed;
-        this.vx = speed;
-        this.vy = -1 * speed;
+        this.vx = 0;
+        this.vy = 0;
         
         this.bounce = 1;
 
@@ -35,21 +38,53 @@ export default class Ball {
     updatePosition() {
         this._view.x = this.x;
         this._view.y = this.y;
-        const directionAngle = Math.atan2(this.vy, this.vx);
-        const resultAngle = directionAngle + Math.PI / 2;
+    }
 
-        if (this.view.children[1]) {
-            this.view.children[1].rotation = resultAngle;
+    stickToPaddle(paddle) {
+        this.paddle = paddle;
+        this.isSticked = true;
+        this.isMoving = false;
+        this.updateStickedPosition();
+    }
+
+    updateStickedPosition() {
+        if (this.isSticked && this.paddle) {
+            this.x = this.paddle.x + this.paddle.width / 2;
+            this.y = this.paddle.y - this.radius;
+            this.updatePosition();
         }
     }
-    
+
+    launch() {
+        if (!this.isSticked) return;
+        
+        this.isSticked = false;
+        this.isMoving = true;
+
+        this.vx = 0;
+        this.vy = -this.speed;
+    }
+
     move() {
+        if (this.isSticked) {
+            this.updateStickedPosition();
+            return;
+        }
+
+        if (!this.isMoving) {
+            return;
+        }
+        
         this.x += this.vx;
         this.y += this.vy;
         this.updatePosition();
     }
 
     checkLevelBoundsCollision(levelBounds) {
+        if (this.isSticked) {
+            return false;
+        }
+        
         const bounds = levelBounds.getBounds();
         let collided = false;
 
@@ -74,42 +109,14 @@ export default class Ball {
             collided = true;
         }
         
-        const isBottomBound = this.y + this.radius >= bounds.bottom;
-        if (isBottomBound) {
+        return collided;
+    }
+    
+    checkPaddleCollision(paddle) {
+        if (this.isSticked || !this.isMoving) {
             return false;
         }
         
-        return collided;
-    }
-
-    checkWindowCollision() {
-        const isLeftBound = this.x - this.radius <= 0;
-        if (isLeftBound) {
-            this.x = this.radius;
-            this.vx = -this.vx;
-            return true;
-        }
-
-        const isRightBound = this.x + this.radius >= STATE.app.screen.width;
-        if (isRightBound) {
-            this.x = STATE.app.screen.width - this.radius;
-            this.vx = -this.vx;
-            return true;
-        }
-
-        const isTopBound = this.y - this.radius <= 0;
-        if (isTopBound) {
-            this.y = this.radius;
-            this.vy = -this.vy;
-            return true;
-        }
-        
-        return false;
-    }
-    
-    // Проверка столкновения с ракеткой
-    checkPaddleCollision(paddle) {
-        // AABB коллизия круга с прямоугольником
         const ballLeft = this.x - this.radius;
         const ballRight = this.x + this.radius;
         const ballTop = this.y - this.radius;
@@ -145,6 +152,10 @@ export default class Ball {
     }
 
     checkBricksCollision(bricks) {
+        if (this.isSticked) {
+            return false;
+        }
+        
         let hit = false;
         
         for (let i = bricks.length - 1; i >= 0; i--) {
@@ -152,7 +163,6 @@ export default class Ball {
 
             const { x: brickX, y: brickY } = brick.view.getGlobalPosition();
 
-            // Проверка коллизии круга с прямоугольником
             const closestX = Math.max(brickX, Math.min(this.x, brickX + brick.view.width));
             const closestY = Math.max(brickY, Math.min(this.y, brickY + brick.view.height));
             
@@ -163,31 +173,25 @@ export default class Ball {
             if (distance < this.radius) {
                 const overlap = this.radius - distance;
                 
-                // Check side of collision
                 const isHorizontalCollision = Math.abs(dx) > Math.abs(dy);
                 if (isHorizontalCollision) {
-                    // Collision - horizontal
                     const isRightSide = dx > 0;
                     if (isRightSide) {
                         this.x += overlap;
                     } else {
-                        // left side
                         this.x -= overlap;
                     }
                     this.vx = -this.vx;
                 } else {
-                    // Collision - vertical 
                     const isBottomSide = dy > 0;
                     if (isBottomSide) {
                         this.y += overlap;
                     } else {
-                        // top side
                         this.y -= overlap;
                     }
                     this.vy = -this.vy;
                 }
                 
-                // Remove brick
                 brick.getDamage();
                 sound.play("hit");
                 if (brick.health <= 0) {
@@ -195,41 +199,45 @@ export default class Ball {
                 }
                 hit = true;
                 
-                break; // Обрабатываем только одно столкновение за кадр
+                break;
             }
         }
         
         return hit;
     }
 
-    isFallen(screenHeight) {
-        return this.y + this.radius >= screenHeight;
+    isFallen(bottomBound) {
+        if (this.isSticked) {
+            return false;
+        }
+
+        return this.y + this.radius >= bottomBound;
     }
     
-    // Сброс мяча в начальную позицию
     reset() {
         this.x = STATE.app.screen.width / 2;
         this.y = STATE.app.screen.height - 50;
-        this.vx = this.speed;
-        this.vy = -1 * this.speed;
+        this.vx = 0;
+        this.vy = 0;
+        this.isMoving = false;
+        this.isSticked = true;
         this.updatePosition();
     }
     
-    setSpeed(vx, vy) {
-        this.vx = vx;
-        this.vy = vy;
-    }
-
     stop() {
-        this.setSpeed(0,0);
+        this.isMoving = false;
+        this.vx = 0;
+        this.vy = 0;
     }
     
-    // Увеличение скорости (для сложности)
     increaseSpeed(multiplier = 1.05) {
+        if (this.isSticked) {
+            return;
+        }
+        
         this.vx *= multiplier;
         this.vy *= multiplier;
         
-        // Ограничиваем максимальную скорость
         const maxSpeed = 12;
         this.vx = Math.min(Math.max(this.vx, -maxSpeed), maxSpeed);
         this.vy = Math.min(Math.max(this.vy, -maxSpeed), maxSpeed);
