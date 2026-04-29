@@ -60,7 +60,7 @@ export default class Modal {
             }
         });
         this._message.x = (MODAL_DATA.width - this._message.width) / 2;
-        this._message.y = 60;
+        this._message.y = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 60 : 40;
 
         this._modalWrapper.addChild(this._message);
 
