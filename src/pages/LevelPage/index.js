@@ -1,8 +1,6 @@
-import { Container, Sprite, Text } from "pixi.js";
+import { Container, Sprite } from "pixi.js";
 
 import { STATE } from "../../main";
-
-import { TextData } from "../../constants/interface";
 
 import Ball from "../../ui/Game/Ball";
 import PlayerPlatform from "../../ui/Game/PlayerPlatform";
@@ -10,7 +8,7 @@ import LevelBounds from "../../ui/Game/LevelBounds";
 
 import { clearStage } from "../../utils/clearStage";
 import { setBackground } from "../../utils/setBackground";
-import { createLevelGrid, createLevelGridWrapper, createReturnButton, gameCycle } from "./utils";
+import { createHealthInfo, createLevelGrid, createLevelGridWrapper, createReturnButton, createScoreInfo, gameCycle } from "./utils";
 
 export let tickerId = null;
 
@@ -22,19 +20,7 @@ export default function DrawLevel(currentStage, levelId) {
     const pageContainer = new Container();
     setBackground(Sprite.from("BG"), pageContainer, undefined, false);
 
-    const score = new Text({
-        text: `Score: ${STATE.currentLevelState}`, 
-        style: {
-            fontFamily: TextData.textFontFamily,
-            fontSize: 32,
-            fill: TextData.textColorDefault,
-            align: 'center',
-        }
-    });
-    score.position.set(
-        STATE.app.screen.width * 0.05,
-        STATE.app.screen.width * 0.05 + score.height
-    );
+    const score = createScoreInfo();
     pageContainer.addChild(score);
 
     const levelGrid = createLevelGrid(levelId);
@@ -42,25 +28,12 @@ export default function DrawLevel(currentStage, levelId) {
     pageContainer.addChild(levelGridWrapper);
 
     const levelBounds = new LevelBounds(pageContainer, undefined, undefined, 0);
-    
     const ball = new Ball(16, 10, "ball", 3);
     const paddle = new PlayerPlatform(STATE.app.screen.height - 16 - 100, levelBounds);
     
     ball.stickToPaddle(paddle);
     
-    const health = new Text({
-        text: `Health: ${ball.health}`,
-        style: {
-            fontFamily: TextData.textFontFamily,
-            fontSize: 24,
-            align: "center",
-            fill: "#fff",
-        },
-    });
-    health.position.set(
-        STATE.app.screen.width - 100 - health.width, 
-        STATE.app.screen.width * 0.05 + score.height
-    );
+    const health = createHealthInfo(ball.health);
     
     const bricks = levelGrid.cellsList;
 

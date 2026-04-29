@@ -1,15 +1,73 @@
-import { Container } from "pixi.js";
+import { Container, Text } from "pixi.js";
 import { sound } from "@pixi/sound";
 
 import { tickerId } from ".";
 
 import { PAGES, STATE } from "../../main";
 import Modal, { MODAL_DATA } from "../../models/Modal";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE, TextData } from "../../constants/interface";
 
 import LevelGrid from "../../ui/Game/LevelGrid";
 import { createPageIconButton } from "../../ui/Interface/PageIconButton";
 
 import { saveState } from "../../utils/init/state";
+
+const getScoreText = () => {
+    return `Score: ${STATE.currentLevelState.toString().padStart(4, "0")}`;
+};
+
+export const createScoreInfo = () => {
+    const isLandscape = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape;
+
+    const fontSize = isLandscape ? 32 : 18;
+    const score = new Text({
+        text: getScoreText(), 
+        style: {
+            fontFamily: TextData.textFontFamily,
+            fontSize: fontSize,
+            fill: TextData.textColorDefault,
+            align: 'center',
+            fontVariantNumeric: "tabular-nums",
+        }
+    });
+
+    const xMarginRight = isLandscape ? 100 : 30;
+    const xPosition = STATE.app.screen.width - xMarginRight - score.width;
+
+    const yPosition = isLandscape
+        ? (STATE.app.screen.width * 0.05) + (score.height * 2)
+        : 56 + 8 + score.height;
+
+    score.position.set(xPosition, yPosition);
+
+    return score;
+};
+
+export const createHealthInfo = (ballHealth) => {
+    const isLandscape = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape;
+    
+    const fontSize = isLandscape ? 24 : 18;
+    const health = new Text({
+        text: `Health: ${ballHealth}`,
+        style: {
+            fontFamily: TextData.textFontFamily,
+            fontSize: fontSize,
+            align: "center",
+            fill: "#fff",
+            fontVariantNumeric: "tabular-nums",
+        },
+    });
+
+    const xMarginRight = isLandscape ? 100 : 30;
+    const xPosition = STATE.app.screen.width - xMarginRight - health.width;
+    const yPosition = isLandscape 
+        ? STATE.app.screen.width * 0.05 + health.height
+        : 56;
+
+    health.position.set(xPosition, yPosition);
+
+    return health;
+};
 
 export const createLevelGrid = (levelId) => {
     const levelGrid = new LevelGrid(levelId, 10, 10);
@@ -174,7 +232,7 @@ const handleBallFallen = (ball, healthText, paddle, levelId, onLaunch) => {
 };
 
 export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, healthText, onLaunch) => {
-    score.text = `Score: ${STATE.currentLevelState}`;
+    score.text = getScoreText();
 
     ball.move();
     
