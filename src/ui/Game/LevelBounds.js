@@ -1,16 +1,24 @@
 import { STATE } from "../../main";
 import { Sprite, Texture, Graphics } from "pixi.js";
 
+/**
+ * wallThinkness - need for frame-texture.
+ */
 const LEVEL_BOUNDS_DATA = {
     textureDefault: "frame",
-    wallThickness: 20,
+    wallThicknessVertical: 22,
+    wallThicknessHorizontal: 20,
+    padding: 0,
+    color: 0xFFFFFF,
+    alpha: 1
 };
 
 export default class LevelBounds {
-    constructor(levelContainer, padding = 20, color = 0xFFFFFF, alpha = 1) {
+    constructor(levelContainer, padding = LEVEL_BOUNDS_DATA.padding, color = LEVEL_BOUNDS_DATA.color, alpha = LEVEL_BOUNDS_DATA.alpha) {
         this._color = color;
         this._alpha = alpha;
-        this._wallThickness = LEVEL_BOUNDS_DATA.wallThickness;
+        this._wallThicknessVertical = LEVEL_BOUNDS_DATA.wallThicknessVertical;
+        this._wallThicknessHorizontal = LEVEL_BOUNDS_DATA.wallThicknessHorizontal;
 
         this.padding = padding;
         this.levelContainer = levelContainer;
@@ -28,6 +36,9 @@ export default class LevelBounds {
     
     createBoundsWithSprite() {
         this.borderSprite = new Sprite(Texture.from(LEVEL_BOUNDS_DATA.textureDefault));
+        this._wallThicknessVertical = (STATE.app.screen.height * 100 / this.borderSprite.height) * this._wallThicknessVertical / 100;
+        this._wallThicknessHorizontal = (STATE.app.screen.width * 100 / this.borderSprite.width) * this._wallThicknessHorizontal / 100;
+
         this.borderSprite.width = STATE.app.screen.width;
         this.borderSprite.height = STATE.app.screen.height;
         
@@ -39,19 +50,19 @@ export default class LevelBounds {
         this.borderGraphics.alpha = this._alpha;
         
         // Рисуем верхнюю стену
-        this.borderGraphics.rect(0, 0, STATE.app.screen.width, this._wallThickness);
+        this.borderGraphics.rect(0, 0, STATE.app.screen.width, this._wallThicknessVertical);
         this.borderGraphics.fill(this._color);
         
         // Рисуем нижнюю стену
-        this.borderGraphics.rect(0, STATE.app.screen.height - this._wallThickness, STATE.app.screen.width, this._wallThickness);
+        this.borderGraphics.rect(0, STATE.app.screen.height - this._wallThicknessVertical, STATE.app.screen.width, this._wallThicknessVertical);
         this.borderGraphics.fill(this._color);
         
         // Рисуем левую стену
-        this.borderGraphics.rect(0, 0, this._wallThickness, STATE.app.screen.height);
+        this.borderGraphics.rect(0, 0, this._wallThicknessHorizontal, STATE.app.screen.height);
         this.borderGraphics.fill(this._color);
         
         // Рисуем правую стену
-        this.borderGraphics.rect(STATE.app.screen.width - this._wallThickness, 0, this._wallThickness, STATE.app.screen.height);
+        this.borderGraphics.rect(STATE.app.screen.width - this._wallThicknessHorizontal, 0, this._wallThicknessHorizontal, STATE.app.screen.height);
         this.borderGraphics.fill(this._color);
         
         this.levelContainer.addChild(this.borderGraphics);
@@ -59,18 +70,18 @@ export default class LevelBounds {
 
     createBounds() {
         // Frist version of creating bounds
-        this.createBoundsWithGraphics();
+        // this.createBoundsWithGraphics();
         
         // Second version of creating bounds
-        // this.createBoundsWithSprite();
+        this.createBoundsWithSprite();
     }
     
     getBounds() {
         return {
-            left: this.padding + this._wallThickness,
-            right: STATE.app.screen.width - this.padding - this._wallThickness,
-            top: this.padding + this._wallThickness,
-            bottom: STATE.app.screen.height - this.padding - this._wallThickness,
+            left: this.padding + this._wallThicknessHorizontal,
+            right: STATE.app.screen.width - this.padding - this._wallThicknessHorizontal,
+            top: this.padding + this._wallThicknessVertical,
+            bottom: STATE.app.screen.height - this.padding - this._wallThicknessVertical,
         };
     }
 
