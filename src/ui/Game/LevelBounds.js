@@ -4,7 +4,7 @@ import { Sprite, Texture, Graphics } from "pixi.js";
 /**
  * wallThinkness - need for frame-texture.
  */
-const LEVEL_BOUNDS_DATA = {
+export const LEVEL_BOUNDS_DATA = {
     textureDefault: "frame",
     wallThicknessVertical: 22,
     wallThicknessHorizontal: 20,

@@ -4,6 +4,7 @@ import { sound } from "@pixi/sound";
 import { PAGES, STATE } from "../../main";
 
 import ButtonList from "../../models/ButtonList";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface";
 
 import { Logo } from "../../ui/Interface/Logo";
 import { createPageIconButton } from "../../ui/Interface/PageIconButton";
@@ -30,9 +31,9 @@ export const createNav = () => {
     const navContainer = new Container();
     navContainer.width = STATE.app.screen.width;
 
-    const buttonWidth = STATE.app.screen.width <= 440
-        ? STATE.app.screen.width - 32
-        : 440;
+    const buttonWidth = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape
+        ? 440 
+        : STATE.app.screen.width - 162;
     const buttonHeight = 80;
 
     navContainer.height = buttonHeight;

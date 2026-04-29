@@ -16,6 +16,7 @@ export const createText = (options = {}) => {
             fontSize: 48,
             align: "center",
             fill: TextData.textColorDefault,
+            wordWrap: true,
             ...options,
         }
     });

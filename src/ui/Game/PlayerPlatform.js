@@ -3,9 +3,12 @@ import { sound } from "@pixi/sound";
 
 import { STATE } from "../../main";
 
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface";
+import { LEVEL_BOUNDS_DATA } from "./LevelBounds";
+
 const PLATFORM_DATA = {
-    widthDefault: 200,
-    heightDefault: 64,
+    widthDefault: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 200 : 120,
+    heightDefault: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 64 : 44,
     textureDefault: "platform",
     textureHit: "platformHit",
 };
@@ -15,7 +18,7 @@ export default class PlayerPlatform {
         this.width = PLATFORM_DATA.widthDefault;
         this.height = PLATFORM_DATA.heightDefault;
         this.x = (STATE.app.screen.width - PLATFORM_DATA.widthDefault) / 2;
-        this.y = y;
+        this.y = STATE.app.screen.height - PLATFORM_DATA.heightDefault - LEVEL_BOUNDS_DATA.wallThicknessVertical - 48;
         
         this._view = new Container();
         this._view.x = this.x;

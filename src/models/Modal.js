@@ -3,10 +3,11 @@ import { BlurFilter, Container, Sprite, Text, Texture } from "pixi.js";
 import { ButtonData } from "./Button";
 import ButtonList from "./ButtonList";
 import { STATE } from "../main";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../constants/interface";
 
 export const MODAL_DATA = {
-    width: 400,
-    height: 400,
+    width: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 400 : SCREEN_SIZE.width - 100,
+    height: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 400 : SCREEN_SIZE.width - 100,
 };
 
 export default class Modal {
@@ -59,7 +60,7 @@ export default class Modal {
             }
         });
         this._message.x = (MODAL_DATA.width - this._message.width) / 2;
-        this._message.y = 60;
+        this._message.y = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 60 : 40;
 
         this._modalWrapper.addChild(this._message);
 

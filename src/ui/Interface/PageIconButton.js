@@ -10,15 +10,17 @@ export const createPageIconButton = ({
     isActive,
     text = undefined
 }) => {
-    const iconSize = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape
+    const isLanscape = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape;
+
+    const iconSize = isLanscape
         ? 96
         : 46;
-    const iconX = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape
+    const iconX = isLanscape
         ? 80
         : 40;
-    const iconY = SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape
+    const iconY = isLanscape
         ? 60
-        : 20;
+        : 56;
 
     return new Icon(
         iconX, iconY, 
