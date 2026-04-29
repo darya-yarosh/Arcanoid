@@ -5,8 +5,9 @@ import { tickerId } from ".";
 
 import { PAGES, STATE } from "../../main";
 import Modal, { MODAL_DATA } from "../../models/Modal";
-import Icon from "../../models/Icon";
+
 import LevelGrid from "../../ui/Game/LevelGrid";
+import { createPageIconButton } from "../../ui/Interface/PageIconButton";
 
 import { saveState } from "../../utils/init/state";
 
@@ -207,22 +208,13 @@ export const gameCycle = (levelId, ball, bricks, paddle, levelBounds, score, hea
 };
 
 export const createReturnButton = (action) => {
-    const iconSize = 96;
-    const iconX = STATE.app.screen.width <= 500
-        ? 40
-        : 60;
-    const iconY = STATE.app.screen.height - iconX - iconSize;
-
-    return new Icon(
-        iconX, iconY, 
-        undefined, 
-        iconSize, iconSize, 
-        () => {
+    return createPageIconButton({
+        action: () => {
             action();
             STATE.currentPage = PAGES.levelsList;
             STATE.currentPage.draw();
         },
-        "IconReturn",
-        "IconReturn",
-    );
+        textureActive: "IconReturn",
+        textureUnactive: "IconReturn",
+    });
 };
