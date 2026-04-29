@@ -8,7 +8,7 @@ import { STATE } from '../main';
  * @param {Sprite} bgSprite - sprite of background
  * @param {Application["stage"]} stage - current stage for this background
  */
-export const setBackground = (bgSprite, stage, index = 0) => {
+export const setBackground = (bgSprite, stage, index = 0, withFrame = true) => {
   const { app } = STATE;
 
   // Centering background on the stage.
@@ -30,8 +30,10 @@ export const setBackground = (bgSprite, stage, index = 0) => {
   // Append it first, because it should be under all other elements.
   stage.addChildAt(bgSprite, index);
 
-  const frame = Sprite.from("frame");
-  frame.width = STATE.app.screen.width;
-  frame.height = STATE.app.screen.height;
-  stage.addChildAt(frame, index+1);
+  if (withFrame) {
+    const frame = Sprite.from("frame");
+    frame.width = STATE.app.screen.width;
+    frame.height = STATE.app.screen.height;
+    stage.addChildAt(frame, index+1);
+  }
 };

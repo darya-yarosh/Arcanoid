@@ -20,7 +20,7 @@ export default function DrawLevel(currentStage, levelId) {
     tickerId = null;
 
     const pageContainer = new Container();
-    setBackground(Sprite.from("BG"), pageContainer);
+    setBackground(Sprite.from("BG"), pageContainer, undefined, false);
 
     const score = new Text({
         text: `Score: ${STATE.currentLevelState}`, 
