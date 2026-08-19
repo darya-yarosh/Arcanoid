@@ -1,5 +1,7 @@
-import { STATE } from "../../main";
-import { Sprite, Texture, Graphics } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Sprite, Texture, Graphics } = PIXI;
+
+import { STATE } from "../../main.js";
 
 /**
  * wallThinkness - need for frame-texture.

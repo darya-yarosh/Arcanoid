@@ -1,13 +1,15 @@
-import { Container } from "pixi.js";
-import { sound } from "@pixi/sound";
+// eslint-disable-next-line no-undef
+const { Container } = PIXI;
+// eslint-disable-next-line no-undef
+const { sound } = PIXI.sound;
 
-import { PAGES, STATE } from "../../main";
+import { PAGES, STATE } from "../../main.js";
 
-import ButtonList from "../../models/ButtonList";
-import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface";
+import ButtonList from "../../models/ButtonList.js";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface.js";
 
-import { Logo } from "../../ui/Interface/Logo";
-import { createPageIconButton } from "../../ui/Interface/PageIconButton";
+import { Logo } from "../../ui/Interface/Logo.js";
+import { createPageIconButton } from "../../ui/Interface/PageIconButton.js";
 
 export const createHeader = () => {
     const headerContainter = new Container();

@@ -1,5 +1,7 @@
-import { Container, Sprite, Text, Texture } from "pixi.js";
-import { sound } from "@pixi/sound";
+// eslint-disable-next-line no-undef
+const { Container, Sprite, Text, Texture } = PIXI;
+// eslint-disable-next-line no-undef
+const { sound } = PIXI.sound;
 
 export const IconData = {
     width: 96,

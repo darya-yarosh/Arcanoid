@@ -1,9 +1,10 @@
-import { BlurFilter, Container, Sprite, Text, Texture } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { BlurFilter, Container, Sprite, Text, Texture } = PIXI;
 
-import { ButtonData } from "./Button";
-import ButtonList from "./ButtonList";
-import { STATE } from "../main";
-import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../constants/interface";
+import { ButtonData } from "./Button.js";
+import ButtonList from "./ButtonList.js";
+import { STATE } from "../main.js";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../constants/interface.js";
 
 export const MODAL_DATA = {
     width: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 400 : SCREEN_SIZE.width - 100,

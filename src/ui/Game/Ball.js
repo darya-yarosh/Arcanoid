@@ -1,7 +1,9 @@
-import { Container, Sprite, Texture } from 'pixi.js';
-import { sound } from '@pixi/sound';
+// eslint-disable-next-line no-undef
+const { Container, Sprite, Texture } = PIXI;
+// eslint-disable-next-line no-undef
+const { sound } = PIXI.sound;
 
-import { STATE } from '../../main';
+import { STATE } from '../../main.js';
 
 const BALL_DATA = {
     radius: 8,

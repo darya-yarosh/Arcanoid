@@ -1,12 +1,13 @@
-import { Application } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Application } = PIXI;
 
-import { init } from "./utils/init/init";
-import { preload } from "./utils/init/preload";
-import { initState } from "./utils/init/state";
+import { init } from "./utils/init/init.js";
+import { preload } from "./utils/init/preload.js";
+import { initState } from "./utils/init/state.js";
 
-import DrawMenu from "./pages/MenuPage";
-import DrawLevelsList from "./pages/LevelsListPage";
-import DrawLevel from "./pages/LevelPage";
+import DrawMenu from "./pages/MenuPage/index.js";
+import DrawLevelsList from "./pages/LevelsListPage/index.js";
+import DrawLevel from "./pages/LevelPage/index.js";
 
 /**
  * State of project.

@@ -1,10 +1,11 @@
-import { Container, Sprite } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Container, Sprite } = PIXI;
 
-import { STATE } from "../../main";
+import { STATE } from "../../main.js";
 
-import { clearStage } from "../../utils/clearStage";
-import { setBackground } from "../../utils/setBackground";
-import { createHeader, createNav, createReturnButton } from "./utils";
+import { clearStage } from "../../utils/clearStage.js";
+import { setBackground } from "../../utils/setBackground.js";
+import { createHeader, createNav, createReturnButton } from "./utils.js";
 
 export default function DrawLevelsList(currentStage) {
     clearStage(currentStage);
