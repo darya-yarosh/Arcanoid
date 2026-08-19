@@ -3,8 +3,9 @@
 Project on Pixi.JS.
 
 > ### ``Versions``
-> * Project: 0.1.1
+> * Project: 0.2.0
 > * Pixi.JS: 8.8.1
+> * Pixi.Sound: 6.0.1
 
 ## Netlify Demo
 

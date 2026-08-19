@@ -1,16 +1,18 @@
-import { Container, Text } from "pixi.js";
-import { sound } from "@pixi/sound";
+// eslint-disable-next-line no-undef
+const { Container, Text } = PIXI;
+// eslint-disable-next-line no-undef
+const { sound } = PIXI.sound;
 
-import { tickerId } from ".";
+import { tickerId } from "./index.js";
 
-import { PAGES, STATE } from "../../main";
-import Modal, { MODAL_DATA } from "../../models/Modal";
-import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE, TextData } from "../../constants/interface";
+import { PAGES, STATE } from "../../main.js";
+import Modal, { MODAL_DATA } from "../../models/Modal.js";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE, TextData } from "../../constants/interface.js";
 
-import LevelGrid from "../../ui/Game/LevelGrid";
-import { createPageIconButton } from "../../ui/Interface/PageIconButton";
+import LevelGrid from "../../ui/Game/LevelGrid.js";
+import { createPageIconButton } from "../../ui/Interface/PageIconButton.js";
 
-import { saveState } from "../../utils/init/state";
+import { saveState } from "../../utils/init/state.js";
 
 const getScoreText = () => {
     return `Score: ${STATE.currentLevelState.toString().padStart(4, "0")}`;

@@ -1,12 +1,13 @@
-import { Container, Text } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Container, Text } = PIXI;
 
-import { PAGES, STATE } from "../../main";
+import { PAGES, STATE } from "../../main.js";
 
-import { TextData } from "../../constants/interface";
+import { TextData } from "../../constants/interface.js";
 
-import ButtonList from "../../models/ButtonList";
+import ButtonList from "../../models/ButtonList.js";
 
-import { createPageIconButton } from "../../ui/Interface/PageIconButton";
+import { createPageIconButton } from "../../ui/Interface/PageIconButton.js";
 
 export const createText = (options = {}) => {
     return new Text({

@@ -1,6 +1,6 @@
-import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface.js";
 
-import Icon from "../../models/Icon";
+import Icon from "../../models/Icon.js";
 
 export const createPageIconButton = ({
     action, 

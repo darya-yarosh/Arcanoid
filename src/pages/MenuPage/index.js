@@ -1,10 +1,11 @@
-import { Container, Sprite } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Container, Sprite } = PIXI;
 
-import { STATE } from "../../main";
+import { STATE } from "../../main.js";
 
-import { clearStage } from "../../utils/clearStage";
-import { setBackground } from "../../utils/setBackground";
-import { createHeader, createNav, createSoundButton } from "./utils";
+import { clearStage } from "../../utils/clearStage.js";
+import { setBackground } from "../../utils/setBackground.js";
+import { createHeader, createNav, createSoundButton } from "./utils.js";
 
 const DrawMenu = (currentStage) => {
     clearStage(currentStage);

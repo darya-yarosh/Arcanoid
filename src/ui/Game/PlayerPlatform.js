@@ -1,10 +1,12 @@
-import { Container, Sprite, Texture } from "pixi.js";
-import { sound } from "@pixi/sound";
+// eslint-disable-next-line no-undef
+const { Container, Sprite, Texture } = PIXI;
+// eslint-disable-next-line no-undef
+const { sound } = PIXI.sound;
 
-import { STATE } from "../../main";
+import { STATE } from "../../main.js";
 
-import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface";
-import { LEVEL_BOUNDS_DATA } from "./LevelBounds";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../../constants/interface.js";
+import { LEVEL_BOUNDS_DATA } from "./LevelBounds.js";
 
 const PLATFORM_DATA = {
     widthDefault: SCREEN_SIZE.orientationType === SCREEN_ORIENTATION_TYPES.landscape ? 200 : 120,

@@ -1,6 +1,7 @@
-import { Sprite } from 'pixi.js';
+// eslint-disable-next-line no-undef
+const { Sprite } = PIXI;
 
-import { STATE } from '../main';
+import { STATE } from '../main.js';
 
 /**
  * Setting background for selected stage.

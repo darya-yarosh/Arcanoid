@@ -1,7 +1,9 @@
-import { Container, Sprite, Text, Texture } from "pixi.js";
-import { sound } from "@pixi/sound";
+// eslint-disable-next-line no-undef
+const { Container, Sprite, Text, Texture } = PIXI;
+// eslint-disable-next-line no-undef
+const { sound } = PIXI.sound;
 
-import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../constants/interface";
+import { SCREEN_ORIENTATION_TYPES, SCREEN_SIZE } from "../constants/interface.js";
 
 export const ButtonData = {
     width: 226,

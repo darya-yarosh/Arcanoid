@@ -1,7 +1,9 @@
-import { Assets } from "pixi.js";
-import { sound, Sound } from "@pixi/sound";
+// eslint-disable-next-line no-undef
+const { Assets } = PIXI;
+// eslint-disable-next-line no-undef
+const { sound, Sound } = PIXI.sound;
 
-import assetsMap from "./assetsMap";
+import assetsMap from "./assetsMap.js";
 
 const initBgMusic = (soundAsset) => {
     if (!soundAsset) {
@@ -12,7 +14,9 @@ const initBgMusic = (soundAsset) => {
         url: soundAsset.src,
         preload: true,
         loaded: function(err, sound) {
-            sound.play();
+            if (sound) {
+                sound.play();
+            }
         },
         loop: true,
         volume: 0.2,

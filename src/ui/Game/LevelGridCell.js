@@ -1,6 +1,7 @@
-import { Container, Sprite, Texture } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Container, Sprite, Texture } = PIXI;
 
-import { STATE } from "../../main";
+import { STATE } from "../../main.js";
 
 export const LevelGridCellData = {
     width: 80,

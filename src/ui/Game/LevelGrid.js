@@ -1,4 +1,5 @@
-import { Container } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Container } = PIXI;
 
 import LevelGridCell, { LevelGridCellData} from "./LevelGridCell.js";
 import { LEVELS_MAPS } from "../../constants/levelGrid.js";

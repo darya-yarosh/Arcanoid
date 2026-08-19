@@ -1,6 +1,7 @@
-import { Text } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Text } = PIXI;
 
-import { TextData } from "../../constants/interface";
+import { TextData } from "../../constants/interface.js";
 
 /**
  * Create Logo component.

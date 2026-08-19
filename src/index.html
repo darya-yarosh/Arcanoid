@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/player/ball.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Arcanoid game | PixiJS | by YDS">
+    <link rel="stylesheet" href="/style.css">
+    <title>Arcanoid</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100dvw;
+            height: 100dvh;
+            color: rgba(255, 255, 255, 0.87);
+            background-color: #000000;
+        }
+        #app {
+            width: 100dvw;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body style="margin: 0;">
+    <div id="app">
+        <div id="pixi-container"></div>
+    </div>
+    <script src="https://pixijs.download/v8.8.1/pixi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pixi/sound@6.0.1/dist/pixi-sound.js"></script>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

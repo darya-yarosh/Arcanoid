@@ -1,4 +1,4 @@
-import { STATE } from "../../main";
+import { STATE } from "../../main.js";
 
 /**
  * Logic of saving state of user progress in levels.

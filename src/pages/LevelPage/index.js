@@ -1,15 +1,16 @@
-import { Container, Sprite } from "pixi.js";
+// eslint-disable-next-line no-undef
+const { Container, Sprite } = PIXI;
 
-import { STATE } from "../../main";
+import { STATE } from "../../main.js";
 
-import Ball from "../../ui/Game/Ball";
-import PlayerPlatform from "../../ui/Game/PlayerPlatform";
-import LevelBounds from "../../ui/Game/LevelBounds";
+import Ball from "../../ui/Game/Ball.js";
+import PlayerPlatform from "../../ui/Game/PlayerPlatform.js";
+import LevelBounds from "../../ui/Game/LevelBounds.js";
 
-import { clearStage } from "../../utils/clearStage";
-import { setBackground } from "../../utils/setBackground";
-import { createHealthInfo, createLevelGrid, createLevelGridWrapper, createReturnButton, createScoreInfo, gameCycle } from "./utils";
-import { isMobileDevice } from "../../utils/isMobileDevice";
+import { clearStage } from "../../utils/clearStage.js";
+import { setBackground } from "../../utils/setBackground.js";
+import { createHealthInfo, createLevelGrid, createLevelGridWrapper, createReturnButton, createScoreInfo, gameCycle } from "./utils.js";
+import { isMobileDevice } from "../../utils/isMobileDevice.js";
 
 export let tickerId = null;
 
