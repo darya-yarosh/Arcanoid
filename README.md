@@ -9,7 +9,7 @@ Project on Pixi.JS.
 
 ## Netlify Demo
 
-[Link](https://yds-arcanoid.netlify.app)
+[Link](https://ydsarcanoid.netlify.app)
 
 ## Requirements (russian)
 
